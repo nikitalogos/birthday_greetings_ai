@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   // setup for Github Pages
   target: "static",
   app: {
-    baseURL: "/",
+    baseURL: "/birthday_greetings_ai/",
 
     // fixed by .nojekyll file at root of repo:
     //"buildAssetsDir": "/nuxt/", // default is /_nuxt/ which is ignored by Github Pages
