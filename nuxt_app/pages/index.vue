@@ -1,10 +1,7 @@
 <script>
-export default defineNuxtComponent({
-});
+export default defineNuxtComponent({});
 </script>
 
-<template>
-  Hello world!
-</template>
+<template>Hello world!</template>
 
 <style lang="scss"></style>
