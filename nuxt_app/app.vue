@@ -11,7 +11,7 @@ export default defineNuxtComponent({
           content: "This notifies dark reader to not to darken this site",
         },
       ],
-      link: [{ rel: "icon", href: "/favicon.png" }],
+      link: [{ rel: "icon", href: "/birthday_greetings_ai/favicon.png" }],
       htmlAttrs: {
         lang: "en", // default language
       },
