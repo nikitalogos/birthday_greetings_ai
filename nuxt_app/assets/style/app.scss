@@ -1,0 +1,97 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~global css variables~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// for colors adjustment: https://color.adobe.com/ru/create/color-wheel
+:root {
+  // colors
+  --bg-color: #333;
+
+  --white-color: #fff;
+  --light-grey-color: #eee;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~html tags~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+body {
+  margin: 0;
+  overflow-x: hidden;
+
+  font-family: Raleway;
+  font-size: 16px;
+
+  background-color: var(--bg-color);
+  color: #c8c3bc; // if you change this, also change the color of "/public/logos_logo.svg"
+  color-scheme: dark !important;
+
+  // Fix for mobile chrome browser. It fails to update BackgroundStars on scroll, when the page height changes
+  // solution: https://stackoverflow.com/questions/24944925/background-image-jumps-when-address-bar-hides-ios-android-mobile-chrome
+  &:before {
+    content: "";
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: calc(100% + 200px);
+    z-index: -10;
+    background-color: var(--bg-color);
+  }
+}
+
+a {
+  font-weight: bold;
+}
+
+a,
+button {
+  text-decoration: none;
+
+  color: var(--light-grey-color);
+  &:hover {
+    color: var(--white-color);
+  }
+}
+
+button {
+  // reset all default button css but outline to make it look more like <a>
+  background: none;
+  //   color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  // outline: inherit;
+
+  // apply styles
+  font-weight: bold;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~classes~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~fonts~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// how to specify font: https://stackoverflow.com/questions/11737168/how-to-import-fonts-in-css
+@font-face {
+  font-family: "Raleway";
+  src: url("assets/fonts/raleway/static/Raleway-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("assets/fonts/raleway/static/Raleway-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("assets/fonts/raleway/static/Raleway-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("assets/fonts/raleway/static/Raleway-BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
