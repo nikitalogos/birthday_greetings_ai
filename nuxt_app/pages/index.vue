@@ -18,6 +18,11 @@ export default defineNuxtComponent({
     date_format(date) {
       return date.toISOString().slice(0, 10);
     },
+    limit_textarea_input(event, param) {
+      const value = event.target.value.slice(0, param.max_length);
+      param.value = value
+      event.target.value = value  // to update textarea, because :value="param.value" doesn't work
+    },
   },
   created() {
     // init params from query string
@@ -31,7 +36,7 @@ export default defineNuxtComponent({
 <template>
   <div>
     <form>
-      <div v-for="(group, idx) in params.groups()" :key="idx">
+      <div v-for="(group, idx) in params.groups" :key="idx">
         <h2>{{ group.label }}</h2>
         <div v-for="param in group.items" class="param">
           <label :for="param.label">{{ param.label }}</label>
@@ -39,19 +44,24 @@ export default defineNuxtComponent({
           <VueDatePicker
             v-if="param.type === 'date'"
             v-model="param.value"
+            :id="param.label"
             :flow="['year', 'month', 'calendar']"
             auto-apply
             :enable-time-picker="false"
             :format="date_format"
             dark
+            text-input
+            :text-input-options="{ format: 'yyyy-MM-dd' }"
+            placeholder="Select date or type it in format YYYY-MM-DD"
           ></VueDatePicker>
           <span v-else-if="param.type === 'dynamic'">
             {{ param.value }} (you can hide it)
-            <input type="checkbox" :id="param.label" v-model="param.hide" />
+            <toggle v-model="param.hide" :id="param.label" />
           </span>
           <multiselect
             v-else-if="param.type === 'select'"
             v-model="param.value"
+            :id="param.label"
             :options="param.options"
             placeholder="Select option or type your own variant"
             :searchable="true"
@@ -60,6 +70,7 @@ export default defineNuxtComponent({
           <multiselect
             v-else-if="param.type === 'multiselect'"
             v-model="param.value"
+            :id="param.label"
             :options="param.options"
             mode="tags"
             placeholder="Select or type your own wishes. Click on wish or press Enter to add it"
@@ -67,10 +78,21 @@ export default defineNuxtComponent({
             :createOption="true"
           ></multiselect>
           <toggle v-else-if="param.type === 'toggle'" v-model="param.value" />
-          <input v-else :type="param.type" :id="param.label" v-model="param.value" />
+          <div v-else-if="param.type === 'textarea'" class="textarea-wrapper">
+            <textarea
+              :id="param.label"
+              rows="10"
+              :placeholder="`Type your ${param.label.toLowerCase()} here`"
+              @input="limit_textarea_input($event, param)"
+              :value="param.value"
+            ></textarea>
+            <div class="symbols-used"> {{ param.max_length - (param.value?.length ?? 0) }} symbols left </div>
+          </div>
+          <input v-else :type="param.type" :id="param.label" v-model="param.value" class="" />
         </div>
       </div>
     </form>
+    <pre>{{ JSON.stringify(params.values, null, 4) }}</pre>
   </div>
 </template>
 
@@ -94,8 +116,24 @@ form {
     label {
       width: 150px;
     }
-    .multiselect {
+    .multiselect, .textarea-wrapper, input, .dp__main {
       width: calc(100% - 150px);
+    }
+    textarea {
+      width: 100%;
+    }
+    input, textarea {
+      box-sizing: border-box;
+    }
+    textarea {
+      position: relative;
+      .symbols-used {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-size: 0.8em;
+        color: #999;
+      }
     }
   }
 }

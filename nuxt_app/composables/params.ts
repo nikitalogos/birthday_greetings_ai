@@ -1,25 +1,6 @@
 import { reactive, computed } from "vue";
 
 export const params = reactive({
-  groups() {
-    return [
-      { name: "essentials", label: "Essentials", items: [this.name, this.date_of_birth] },
-      { name: "dynamic", label: "Dynamic", items: [this.age, this.zodiac] },
-      {
-        name: "person_details",
-        label: "Person details",
-        items: [this.gender, this.relationship, this.profession, this.hobby],
-      },
-      { name: "content", label: "Content", items: [this.what_to_wish, this.target_language] },
-      { name: "comment", label: "Comment", items: [this.comment] },
-      {
-        name: "styling",
-        label: "Styling",
-        items: [this.use_emojis, this.greeting_length, this.greeting_style, this.theme, this.use_quotation],
-      },
-    ];
-  },
-
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~essentials~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   name: {
     label: "Name",
@@ -88,6 +69,7 @@ export const params = reactive({
   comment: {
     label: "Comment",
     type: "textarea",
+    max_length: 200,
     value: null,
   },
 
@@ -181,3 +163,34 @@ params.zodiac = {
   value: zodiac_value,
   hide: true,
 };
+
+
+
+params.groups = computed(() => {
+  const p = params;
+  return [
+    { name: "essentials", label: "Essentials", items: [p.name, p.date_of_birth] },
+    { name: "dynamic", label: "Dynamic", items: [p.age, p.zodiac] },
+    {
+      name: "person_details",
+      label: "Person details",
+      items: [p.gender, p.relationship, p.profession, p.hobby],
+    },
+    { name: "content", label: "Content", items: [p.what_to_wish, p.target_language] },
+    { name: "comment", label: "Comment", items: [p.comment] },
+    {
+      name: "styling",
+      label: "Styling",
+      items: [p.use_emojis, p.greeting_length, p.greeting_style, p.theme, p.use_quotation],
+    },
+  ];
+});
+params.values = computed(() => {
+  const dict = {}
+  params.groups.forEach(group => {
+    group.items.forEach(item => {
+      dict[item.label] = item.value
+    })
+  })
+  return dict;
+});
