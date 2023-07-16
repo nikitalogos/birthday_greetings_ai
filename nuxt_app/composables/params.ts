@@ -65,14 +65,6 @@ export const params = reactive({
     options: ["en", "ru"],
   },
 
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~comment~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  comment: {
-    label: "Comment",
-    type: "textarea",
-    max_length: 200,
-    value: null,
-  },
-
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~styling~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   use_emojis: {
     label: "Use emojis",
@@ -98,17 +90,24 @@ export const params = reactive({
     value: null,
     options: ["cyberpunk"], // todo fill themes
   },
-
   use_quotation: {
     label: "Use quotation",
     type: "toggle",
+    value: false,
+  },
+  use_affirmation: {
+    label: "Use affirmation",
+    type: "toggle",
+    value: false,
+  },
+
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~comment~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  comment: {
+    label: "Comment",
+    type: "textarea",
+    max_length: 200,
     value: null,
   },
-  //  use_affirmation: {
-  //    label: "Use affirmation",
-  //    type: "checkbox",
-  //    value: null,
-  //  },
 });
 
 const age_value = computed(() => {
@@ -175,12 +174,12 @@ params.groups = computed(() => {
       items: [p.gender, p.relationship, p.profession, p.hobby],
     },
     { name: "content", label: "Content", items: [p.what_to_wish, p.target_language] },
-    { name: "comment", label: "Comment", items: [p.comment] },
     {
       name: "styling",
       label: "Styling",
-      items: [p.use_emojis, p.greeting_length, p.greeting_style, p.theme, p.use_quotation],
+      items: [p.use_emojis, p.greeting_length, p.greeting_style, p.theme, p.use_quotation, p.use_affirmation],
     },
+    { name: "comment", label: "Comment", items: [p.comment] },
   ];
 });
 params.values = computed(() => {

@@ -35,11 +35,12 @@ export default defineNuxtComponent({
 
 <template>
   <div>
+    <h1 style="text-align: center; position: sticky">Params Create! History</h1>
     <form>
       <div v-for="(group, idx) in params.groups" :key="idx">
         <h2>{{ group.label }}</h2>
         <div v-for="param in group.items" class="param">
-          <label :for="param.label">{{ param.label }}</label>
+          <label v-if="group.label !== 'Comment'" :for="param.label">{{ param.label }}</label>
 
           <VueDatePicker
             v-if="param.type === 'date'"
@@ -59,25 +60,28 @@ export default defineNuxtComponent({
             <toggle v-model="param.hide" :id="param.label" onLabel="enabled" offLabel="hidden" />
             <div class="hint">{{ param.hide ? "(press to hide)" : "(press to enable)" }}</div>
           </span>
-          <multiselect
-            v-else-if="param.type === 'select'"
-            v-model="param.value"
-            :id="param.label"
-            :options="param.options"
-            placeholder="Select option or type your own variant"
-            :searchable="true"
-            :createOption="true"
-          ></multiselect>
-          <multiselect
-            v-else-if="param.type === 'multiselect'"
-            v-model="param.value"
-            :id="param.label"
-            :options="param.options"
-            mode="tags"
-            placeholder="Select or type your own wishes. Click on wish or press Enter to add it"
-            :searchable="true"
-            :createOption="true"
-          ></multiselect>
+          <div v-else-if="param.type === 'select'" class="multi-select-wrapper">
+            <multiselect
+              v-model="param.value"
+              :id="param.label"
+              :options="param.options"
+              placeholder="Select option or type your own variant"
+              :searchable="true"
+              :createOption="true"
+            ></multiselect>
+          </div>
+          <div v-else-if="param.type === 'multiselect'" class="multi-select-wrapper">
+            <div class="hint">(Click on wish or press Enter to add it)</div>
+            <multiselect
+              v-model="param.value"
+              :id="param.label"
+              :options="param.options"
+              mode="tags"
+              placeholder="Select or type your own wishes"
+              :searchable="true"
+              :createOption="true"
+            ></multiselect>
+          </div>
           <toggle v-else-if="param.type === 'toggle'" v-model="param.value" onLabel="yes" offLabel="no" />
           <div v-else-if="param.type === 'textarea'" class="textarea-wrapper">
             <textarea
@@ -112,6 +116,10 @@ export default defineNuxtComponent({
 <style lang="scss" src="@/assets/style/vueform-toggle.scss"></style>
 
 <style scoped lang="scss">
+.hint {
+  color: var(--color-faded);
+}
+
 form {
   max-width: 600px;
   margin: 0 auto;
@@ -136,18 +144,18 @@ form {
     .toggle-container {
       margin: 0 15px;
     }
-    .hint {
-      color: var(--color-faded);
-    }
   }
-  .multiselect,
-  .textarea-wrapper,
+  .multi-select-wrapper,
   input,
   .dp__main {
     width: calc(100% - 150px);
   }
-  textarea {
+  .textarea-wrapper, textarea {
     width: 100%;
+  }
+  .multi-select-wrapper .hint {
+    margin-left: 5px;
+    margin-bottom: 2px;
   }
   input,
   textarea {
