@@ -150,7 +150,8 @@ form {
   .dp__main {
     width: calc(100% - 150px);
   }
-  .textarea-wrapper, textarea {
+  .textarea-wrapper,
+  textarea {
     width: 100%;
   }
   .multi-select-wrapper .hint {
