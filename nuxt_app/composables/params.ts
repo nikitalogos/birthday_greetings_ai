@@ -164,8 +164,6 @@ params.zodiac = {
   hide: true,
 };
 
-
-
 params.groups = computed(() => {
   const p = params;
   return [
@@ -186,11 +184,11 @@ params.groups = computed(() => {
   ];
 });
 params.values = computed(() => {
-  const dict = {}
-  params.groups.forEach(group => {
-    group.items.forEach(item => {
-      dict[item.label] = item.value
-    })
-  })
+  const dict = {};
+  params.groups.forEach((group) => {
+    group.items.forEach((item) => {
+      dict[item.label] = item.value;
+    });
+  });
   return dict;
 });

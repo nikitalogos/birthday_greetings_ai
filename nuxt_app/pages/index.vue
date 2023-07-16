@@ -20,8 +20,8 @@ export default defineNuxtComponent({
     },
     limit_textarea_input(event, param) {
       const value = event.target.value.slice(0, param.max_length);
-      param.value = value
-      event.target.value = value  // to update textarea, because :value="param.value" doesn't work
+      param.value = value;
+      event.target.value = value; // to update textarea, because :value="param.value" doesn't work
     },
   },
   created() {
@@ -86,7 +86,7 @@ export default defineNuxtComponent({
               @input="limit_textarea_input($event, param)"
               :value="param.value"
             ></textarea>
-            <div class="symbols-used"> {{ param.max_length - (param.value?.length ?? 0) }} symbols left </div>
+            <div class="symbols-used">{{ param.max_length - (param.value?.length ?? 0) }} symbols left</div>
           </div>
           <input v-else :type="param.type" :id="param.label" v-model="param.value" class="" />
         </div>
@@ -116,13 +116,17 @@ form {
     label {
       width: 150px;
     }
-    .multiselect, .textarea-wrapper, input, .dp__main {
+    .multiselect,
+    .textarea-wrapper,
+    input,
+    .dp__main {
       width: calc(100% - 150px);
     }
     textarea {
       width: 100%;
     }
-    input, textarea {
+    input,
+    textarea {
       box-sizing: border-box;
     }
     textarea {
