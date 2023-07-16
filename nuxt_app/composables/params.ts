@@ -32,10 +32,6 @@ export const params = reactive({
     value: null,
   },
 
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~dynamic~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  hide_age: false,
-  hide_zodiac: true,
-
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~person details~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   gender: {
     label: "Gender",
@@ -133,16 +129,23 @@ export const params = reactive({
   //  },
 });
 
-params.age = computed(() => {
+const age_value = computed(() => {
   const now = new Date();
-  const date = params.date_of_birth;
-  if (!date) return null;
-
-  let was_birthday_this_year =
-    now.getMonth() > date.getMonth() || (now.getMonth() === date.getMonth() && now.getDate() >= date.getDate());
-
-  return now.getFullYear() - date.getFullYear() - (wasBirthdayThisYear ? 0 : 1);
+  const date = params.date_of_birth.value;
+  let age = null;
+  if (date) {
+    const was_birthday_this_year =
+      now.getMonth() > date.getMonth() || (now.getMonth() === date.getMonth() && now.getDate() >= date.getDate());
+    age =  now.getFullYear() - date.getFullYear() - (wasBirthdayThisYear ? 0 : 1);
+  }
+  return
 });
+params.age = {
+  label: "Age",
+  type: "dynamic",
+  value: age_value,
+  hide: false,
+}
 
 const ZODIAC_SIGNS = [
   { sign: ["Capricorn", "♑"], date: [1, 19] },
@@ -159,20 +162,23 @@ const ZODIAC_SIGNS = [
   { sign: ["Sagittarius", "♐"], date: [12, 21] },
   { sign: ["Capricorn", "♑"], date: [12, 31] }, // to handle the case of dates after Dec 21
 ];
-
-params._zodiac = computed(() => {
-  const date = params.date_of_birth;
+const zodiac_value = computed(() => {
+  const date = params.date_of_birth.value;
   if (!date) return null;
 
-  for (let zodiacSign of ZODIAC_SIGNS) {
+  for (let zodiac_sign of ZODIAC_SIGNS) {
     if (
-      date.getMonth() + 1 < zodiacSign.date[0] ||
-      (date.getMonth() + 1 === zodiacSign.date[0] && date.getDate() <= zodiacSign.date[1])
+      date.getMonth() + 1 < zodiac_sign.date[0] ||
+      (date.getMonth() + 1 === zodiac_sign.date[0] && date.getDate() <= zodiac_sign.date[1])
     ) {
-      return zodiacSign;
+      return `${zodiac_sign.sign[0]} (${zodiac_sign.sign[1]})`;
     }
   }
   throw new Error("Date is invalid. That's weird. Shouldn't get here");
 });
-params.zodiac_text = computed(() => params._zodiac.sign[0]);
-params.zodiac_emoji = computed(() => params._zodiac.sign[1]);
+params.zodiac = {
+  label: "Zodiac sign",
+  type: "dynamic",
+  value: zodiac_value,
+  hide: true,
+}
