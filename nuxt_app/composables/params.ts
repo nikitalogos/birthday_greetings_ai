@@ -136,16 +136,16 @@ const age_value = computed(() => {
   if (date) {
     const was_birthday_this_year =
       now.getMonth() > date.getMonth() || (now.getMonth() === date.getMonth() && now.getDate() >= date.getDate());
-    age =  now.getFullYear() - date.getFullYear() - (wasBirthdayThisYear ? 0 : 1);
+    age = now.getFullYear() - date.getFullYear() - (wasBirthdayThisYear ? 0 : 1);
   }
-  return
+  return;
 });
 params.age = {
   label: "Age",
   type: "dynamic",
   value: age_value,
   hide: false,
-}
+};
 
 const ZODIAC_SIGNS = [
   { sign: ["Capricorn", "♑"], date: [1, 19] },
@@ -181,4 +181,4 @@ params.zodiac = {
   type: "dynamic",
   value: zodiac_value,
   hide: true,
-}
+};
