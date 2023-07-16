@@ -154,7 +154,8 @@ form {
       color: #999;
     }
   }
-  input, textarea {
+  input,
+  textarea {
     font-size: 1rem;
     line-height: 1.5rem;
     padding: 6px;
