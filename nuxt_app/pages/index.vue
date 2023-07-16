@@ -1,5 +1,10 @@
 <script>
+import Multiselect from '@vueform/multiselect'
+
 export default defineNuxtComponent({
+  components: {
+    Multiselect,
+  },
   data() {
     return {
       params,
@@ -23,10 +28,20 @@ export default defineNuxtComponent({
         <h2>{{ group.label }}</h2>
         <div v-for="param in group.items">
           <label :for="param.label">{{ param.label }}</label>
+
           <span v-if="param.type === 'dynamic'">
             {{ param.value }} (you can hide it)
             <input type="checkbox" :id="param.label" v-model="param.hide" />
           </span>
+          <multiselect
+            v-if="param.type === 'multiselect'"
+            v-model="param.value"
+            :options="param.options"
+            mode="tags"
+            placeholder="Select or type your own wishes. Click on wish or press Enter to add it"
+            :searchable="true"
+            :createOption="true"
+          ></multiselect>
           <input v-else type="param.type" :id="param.label" v-model="param.value" />
         </div>
       </div>
@@ -34,4 +49,6 @@ export default defineNuxtComponent({
   </div>
 </template>
 
-<style lang="scss"></style>
+<style src="@vueform/multiselect/themes/default.css"></style>
+
+<style scoped lang="scss"></style>

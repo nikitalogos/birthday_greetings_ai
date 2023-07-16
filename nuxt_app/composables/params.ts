@@ -74,7 +74,7 @@ export const params = reactive({
   what_to_wish: {
     label: "What to wish",
     type: "multiselect",
-    value: null,
+    value: [],
     options: ["health", "wealth", "happiness", "success", "love", "adventure"],
   },
   target_language: {
