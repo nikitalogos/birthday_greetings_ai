@@ -3,7 +3,7 @@ export default defineNuxtComponent({
   data() {
     return {
       params,
-    }
+    };
   },
   created() {
     // init params from query string
@@ -17,7 +17,7 @@ export default defineNuxtComponent({
 <template>
   <div>
     <form>
-      <div v-for="group, idx in params.groups()", :key="idx">
+      <div v-for="(group, idx) in params.groups()" :key="idx">
         <h2>{{ group.label }}</h2>
         <div v-for="param in group.items">
           <label :for="param.name">{{ param.label }}</label>
