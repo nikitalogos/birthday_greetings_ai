@@ -1,0 +1,23 @@
+.toggle-container {
+  --toggle-width: 4.5rem;
+  --toggle-height: 1.25rem;
+  --toggle-border: 0.125rem;
+  --toggle-font-size: 0.75rem;
+  --toggle-duration: 150ms;
+  --toggle-bg-on: var(--accent-color);
+  --toggle-bg-off: var(--input-bg-color);
+  --toggle-bg-on-disabled: #d1d5db;
+  --toggle-bg-off-disabled: #e5e7eb;
+  --toggle-border-on: var(--accent-color);
+  --toggle-border-off: var(--border-color);
+  --toggle-border-on-disabled: #d1d5db;
+  --toggle-border-off-disabled: #e5e7eb;
+  --toggle-ring-width: 3px;
+  --toggle-ring-color: #10B98130;
+  --toggle-text-on: var(--color);
+  --toggle-text-off: var(--color);
+  --toggle-text-on-disabled: #9ca3af;
+  --toggle-text-off-disabled: #9ca3af;
+  --toggle-handle-enabled: var(--color);
+  --toggle-handle-disabled: #f3f4f6;
+}

@@ -54,9 +54,10 @@ export default defineNuxtComponent({
             :text-input-options="{ format: 'yyyy-MM-dd' }"
             placeholder="Select date or type it in format YYYY-MM-DD"
           ></VueDatePicker>
-          <span v-else-if="param.type === 'dynamic'">
-            {{ param.value }} (you can hide it)
-            <toggle v-model="param.hide" :id="param.label" />
+          <span v-else-if="param.type === 'dynamic'" class="dynamic">
+            <div class="value">{{ param.value ?? "(???)" }} {{ param.label === "Age" ? "years" : "" }}</div>
+            <toggle v-model="param.hide" :id="param.label" onLabel="enabled" offLabel="hidden" />
+            {{ param.value ? "(press to hide)" : "(press to enable)" }}
           </span>
           <multiselect
             v-else-if="param.type === 'select'"
@@ -88,7 +89,7 @@ export default defineNuxtComponent({
             ></textarea>
             <div class="symbols-used">{{ param.max_length - (param.value?.length ?? 0) }} symbols left</div>
           </div>
-          <input v-else :type="param.type" :id="param.label" v-model="param.value" class="" />
+          <input v-else :type="param.type" :id="param.label" v-model="param.value" />
         </div>
       </div>
     </form>
@@ -99,6 +100,10 @@ export default defineNuxtComponent({
 <style src="@vuepic/vue-datepicker/dist/main.css"></style>
 <style src="@vueform/multiselect/themes/default.css"></style>
 <style src="@vueform/toggle/themes/default.css"></style>
+
+<style lang="scss" src="@/assets/style/vue-datepicker.scss"></style>
+<style lang="scss" src="@/assets/style/vueform-multiselect.scss"></style>
+<style lang="scss" src="@/assets/style/vueform-toggle.scss"></style>
 
 <style scoped lang="scss">
 form {
@@ -112,32 +117,52 @@ form {
     justify-content: left;
 
     margin: 5px 0;
-
-    label {
-      width: 150px;
+  }
+  label {
+    width: 150px;
+  }
+  .dynamic {
+    display: flex;
+    flex-direction: row;
+    .value {
+      width: 100px;
     }
-    .multiselect,
-    .textarea-wrapper,
-    input,
-    .dp__main {
-      width: calc(100% - 150px);
+    .toggle-container {
+      margin: 0 15px;
     }
-    textarea {
-      width: 100%;
+  }
+  .multiselect,
+  .textarea-wrapper,
+  input,
+  .dp__main {
+    width: calc(100% - 150px);
+  }
+  textarea {
+    width: 100%;
+  }
+  input,
+  textarea {
+    box-sizing: border-box;
+  }
+  textarea {
+    position: relative;
+    .symbols-used {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      font-size: 0.8em;
+      color: #999;
     }
-    input,
-    textarea {
-      box-sizing: border-box;
-    }
-    textarea {
-      position: relative;
-      .symbols-used {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        font-size: 0.8em;
-        color: #999;
-      }
+  }
+  input, textarea {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: 6px;
+    background-color: var(--input-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    &:hover {
+      border-color: var(--border-color-active);
     }
   }
 }
