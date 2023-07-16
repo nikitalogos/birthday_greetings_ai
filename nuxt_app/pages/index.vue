@@ -55,9 +55,9 @@ export default defineNuxtComponent({
             placeholder="Select date or type it in format YYYY-MM-DD"
           ></VueDatePicker>
           <span v-else-if="param.type === 'dynamic'" class="dynamic">
-            <div class="value">{{ param.value ?? "(???)" }} {{ param.label === "Age" ? "years" : "" }}</div>
+            <div class="value">{{ param.value ?? "?" }} {{ param.label === "Age" ? "years" : "" }}</div>
             <toggle v-model="param.hide" :id="param.label" onLabel="enabled" offLabel="hidden" />
-            {{ param.value ? "(press to hide)" : "(press to enable)" }}
+            <div class="hint">{{ param.hide ? "(press to hide)" : "(press to enable)" }}</div>
           </span>
           <multiselect
             v-else-if="param.type === 'select'"
@@ -78,7 +78,7 @@ export default defineNuxtComponent({
             :searchable="true"
             :createOption="true"
           ></multiselect>
-          <toggle v-else-if="param.type === 'toggle'" v-model="param.value" />
+          <toggle v-else-if="param.type === 'toggle'" v-model="param.value" onLabel="yes" offLabel="no" />
           <div v-else-if="param.type === 'textarea'" class="textarea-wrapper">
             <textarea
               :id="param.label"
@@ -89,7 +89,13 @@ export default defineNuxtComponent({
             ></textarea>
             <div class="symbols-used">{{ param.max_length - (param.value?.length ?? 0) }} symbols left</div>
           </div>
-          <input v-else :type="param.type" :id="param.label" v-model="param.value" />
+          <input
+            v-else
+            :type="param.type"
+            :id="param.label"
+            v-model="param.value"
+            :placeholder="`Type person's ${param.label.toLowerCase()}`"
+          />
         </div>
       </div>
     </form>
@@ -116,7 +122,7 @@ form {
     align-items: center;
     justify-content: left;
 
-    margin: 5px 0;
+    margin: 10px 0;
   }
   label {
     width: 150px;
@@ -129,6 +135,9 @@ form {
     }
     .toggle-container {
       margin: 0 15px;
+    }
+    .hint {
+      color: var(--color-faded);
     }
   }
   .multiselect,

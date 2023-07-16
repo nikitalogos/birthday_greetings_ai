@@ -77,26 +77,26 @@ export const params = reactive({
   use_emojis: {
     label: "Use emojis",
     type: "select",
-    value: null,
+    value: "few",
     options: ["no", "few", "more", "lots of"],
   },
   greeting_length: {
     label: "Greeting length",
     type: "select",
-    value: null,
-    options: ["short", "medium", "long", "your variant"],
+    value: "medium",
+    options: ["short", "medium", "long"],
   },
   greeting_style: {
     label: "Greeting style",
     type: "select",
     value: null,
-    options: ["formal", "informal", "funny", "your variant"],
+    options: ["informal", "formal", "funny"],
   },
   theme: {
     label: "Theme",
     type: "select",
     value: null,
-    options: ["cyberpunk", "your variant"], // todo fill themes
+    options: ["cyberpunk"], // todo fill themes
   },
 
   use_quotation: {
