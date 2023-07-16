@@ -23,6 +23,7 @@
     "sass": "^1.63.6"
   },
   "dependencies": {
-    "@vueform/multiselect": "^2.6.2"
+    "@vueform/multiselect": "^2.6.2",
+    "@vueform/toggle": "^2.1.3"
   }
 }

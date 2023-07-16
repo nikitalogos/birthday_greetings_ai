@@ -15,7 +15,7 @@ export const params = reactive({
       {
         name: "styling",
         label: "Styling",
-        items: [this.use_emojis, this.greeting_length, this.greeting_style, this.theme],
+        items: [this.use_emojis, this.greeting_length, this.greeting_style, this.theme, this.use_quotation],
       },
     ];
   },
@@ -37,7 +37,7 @@ export const params = reactive({
     label: "Gender",
     type: "select",
     value: null,
-    options: ["male", "female", "non-binary", "prefer not to say", "type your variant"],
+    options: ["male", "female", "non-binary", "prefer not to say"],
   },
   relationship: {
     label: "Relationship",
@@ -119,7 +119,7 @@ export const params = reactive({
 
   use_quotation: {
     label: "Use quotation",
-    type: "checkbox",
+    type: "toggle",
     value: null,
   },
   //  use_affirmation: {

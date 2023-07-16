@@ -2,7 +2,8 @@
 // for colors adjustment: https://color.adobe.com/ru/create/color-wheel
 :root {
   // colors
-  --bg-color: #111;
+  --bg-color: #fff;
+  --color: #000; // #c8c3bc;
 
   --white-color: #fff;
   --light-grey-color: #eee;
@@ -17,7 +18,7 @@ body {
   font-size: 16px;
 
   background-color: var(--bg-color);
-  color: #c8c3bc; // if you change this, also change the color of "/public/logos_logo.svg"
+  color: var(--color);
   color-scheme: dark !important;
 
   // Fix for mobile chrome browser. It fails to update BackgroundStars on scroll, when the page height changes
