@@ -3,7 +3,7 @@ import { reactive, computed } from "vue";
 export const params = reactive({
   groups() {
     return [
-      { name: "essentials", label: "Essentials", items: [this.date_of_birth, this.name] },
+      { name: "essentials", label: "Essentials", items: [this.name, this.date_of_birth] },
       { name: "dynamic", label: "Dynamic", items: [this.age, this.zodiac] },
       {
         name: "person_details",
@@ -21,14 +21,14 @@ export const params = reactive({
   },
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~essentials~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  date_of_birth: {
-    label: "Date of Birth",
-    type: "date",
-    value: null,
-  },
   name: {
     label: "Name",
     type: "text",
+    value: null,
+  },
+  date_of_birth: {
+    label: "Date of Birth",
+    type: "date",
     value: null,
   },
 
@@ -132,13 +132,12 @@ export const params = reactive({
 const age_value = computed(() => {
   const now = new Date();
   const date = params.date_of_birth.value;
-  let age = null;
-  if (date) {
-    const was_birthday_this_year =
-      now.getMonth() > date.getMonth() || (now.getMonth() === date.getMonth() && now.getDate() >= date.getDate());
-    age = now.getFullYear() - date.getFullYear() - (wasBirthdayThisYear ? 0 : 1);
-  }
-  return;
+  if (!date) return null;
+
+  const was_birthday_this_year =
+    now.getMonth() > date.getMonth() || (now.getMonth() === date.getMonth() && now.getDate() >= date.getDate());
+  const age = now.getFullYear() - date.getFullYear() - (was_birthday_this_year ? 0 : 1);
+  return age;
 });
 params.age = {
   label: "Age",

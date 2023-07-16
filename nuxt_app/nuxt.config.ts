@@ -14,4 +14,9 @@ export default defineNuxtConfig({
   telemetry: false, // disable nuxt telemetry
 
   devtools: { enabled: true },
+
+  // for vuepic/vue-datepicker
+  build: {
+    transpile: ["@vuepic/vue-datepicker"],
+  },
 });

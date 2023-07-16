@@ -1,9 +1,11 @@
 <script>
+import VueDatePicker from "@vuepic/vue-datepicker";
 import Multiselect from "@vueform/multiselect";
-import Toggle from '@vueform/toggle'
+import Toggle from "@vueform/toggle";
 
 export default defineNuxtComponent({
   components: {
+    VueDatePicker,
     Multiselect,
     Toggle,
   },
@@ -11,6 +13,11 @@ export default defineNuxtComponent({
     return {
       params,
     };
+  },
+  methods: {
+    date_format(date) {
+      return date.toISOString().slice(0, 10);
+    },
   },
   created() {
     // init params from query string
@@ -29,7 +36,16 @@ export default defineNuxtComponent({
         <div v-for="param in group.items" class="param">
           <label :for="param.label">{{ param.label }}</label>
 
-          <span v-if="param.type === 'dynamic'">
+          <VueDatePicker
+            v-if="param.type === 'date'"
+            v-model="param.value"
+            :flow="['year', 'month', 'calendar']"
+            auto-apply
+            :enable-time-picker="false"
+            :format="date_format"
+            dark
+          ></VueDatePicker>
+          <span v-else-if="param.type === 'dynamic'">
             {{ param.value }} (you can hide it)
             <input type="checkbox" :id="param.label" v-model="param.hide" />
           </span>
@@ -58,6 +74,7 @@ export default defineNuxtComponent({
   </div>
 </template>
 
+<style src="@vuepic/vue-datepicker/dist/main.css"></style>
 <style src="@vueform/multiselect/themes/default.css"></style>
 <style src="@vueform/toggle/themes/default.css"></style>
 
@@ -76,7 +93,6 @@ form {
 
     label {
       width: 150px;
-
     }
     .multiselect {
       width: calc(100% - 150px);
