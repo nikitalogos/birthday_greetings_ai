@@ -16,10 +16,10 @@ export default defineNuxtComponent({
   },
   methods: {
     date_format(date) {
-      var dd = String(date.getDate()).padStart(2, '0');
-      var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var dd = String(date.getDate()).padStart(2, "0");
+      var mm = String(date.getMonth() + 1).padStart(2, "0"); //January is 0!
       var yyyy = date.getFullYear();
-      return yyyy + '-' + mm + '-' + dd;
+      return yyyy + "-" + mm + "-" + dd;
     },
     limit_textarea_input(event, param) {
       const value = event.target.value.slice(0, param.max_length);
