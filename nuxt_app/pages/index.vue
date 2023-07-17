@@ -16,7 +16,10 @@ export default defineNuxtComponent({
   },
   methods: {
     date_format(date) {
-      return date.toISOString().slice(0, 10);
+      var dd = String(date.getDate()).padStart(2, '0');
+      var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var yyyy = date.getFullYear();
+      return yyyy + '-' + mm + '-' + dd;
     },
     limit_textarea_input(event, param) {
       const value = event.target.value.slice(0, param.max_length);
@@ -42,11 +45,11 @@ export default defineNuxtComponent({
         <div v-for="param in group.items" class="param">
           <label v-if="group.label !== 'Comment'" :for="param.label">{{ param.label }}</label>
 
+          <!-- can't use :flow="['year', 'month', 'calendar']" because of a bug. But maybe it will be fixed soon... todo: watch this-->
           <VueDatePicker
             v-if="param.type === 'date'"
             v-model="param.value"
             :id="param.label"
-            :flow="['year', 'month', 'calendar']"
             auto-apply
             :enable-time-picker="false"
             :format="date_format"
@@ -57,8 +60,8 @@ export default defineNuxtComponent({
           ></VueDatePicker>
           <span v-else-if="param.type === 'dynamic'" class="dynamic">
             <div class="value">{{ param.value ?? "?" }} {{ param.label === "Age" ? "years" : "" }}</div>
-            <toggle v-model="param.hide" :id="param.label" onLabel="enabled" offLabel="hidden" />
-            <div class="hint">{{ param.hide ? "(press to hide)" : "(press to enable)" }}</div>
+            <toggle v-model="param.show" :id="param.label" onLabel="enabled" offLabel="hidden" />
+            <div class="hint">{{ param.show ? "(press to hide)" : "(press to enable)" }}</div>
           </span>
           <div v-else-if="param.type === 'select'" class="multi-select-wrapper">
             <multiselect

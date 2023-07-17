@@ -124,7 +124,7 @@ params.age = {
   label: "Age",
   type: "dynamic",
   value: age_value,
-  hide: false,
+  show: true,
 };
 
 const ZODIAC_SIGNS = [
@@ -160,7 +160,7 @@ params.zodiac = {
   label: "Zodiac sign",
   type: "dynamic",
   value: zodiac_value,
-  hide: true,
+  show: false,
 };
 
 params.groups = computed(() => {
