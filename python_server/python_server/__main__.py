@@ -1,22 +1,19 @@
-import asyncio
 import argparse
+import asyncio
 import json
 import os
 import traceback
+from typing import List
 
 import aiohttp_cors
 import replicate
 from aiohttp import web
 from cerberus import Validator
-from typing import List
 
 
 class Server:
     def __init__(self, routes_post: dict, port: int, allowed_client_hosts: List[str]):
-        self.routes_post = {
-            k: self._make_async_route(*v)
-            for k, v in routes_post.items()
-        }
+        self.routes_post = {k: self._make_async_route(*v) for k, v in routes_post.items()}
         self.port = int(port)
         self.allowed_client_hosts = allowed_client_hosts
 
@@ -33,7 +30,7 @@ class Server:
             return wrapper
 
         async def route(request):
-            origin = request.headers.get('Origin')
+            origin = request.headers.get("Origin")
             if origin not in self.allowed_client_hosts:
                 print(f"invalid origin: {origin=}, {request.headers=}")
                 return web.json_response({"error": "Invalid client host!"})
