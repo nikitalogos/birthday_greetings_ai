@@ -1,5 +1,4 @@
 <script>
-
 export default defineNuxtComponent({
   data() {
     return {
@@ -11,9 +10,9 @@ export default defineNuxtComponent({
       alert(await this.chatbot.run("Type first 5 primes"));
     },
   },
-  created(){
-    this.$router.push('/form')
-  }
+  created() {
+    this.$router.push("/form");
+  },
 });
 </script>
 
@@ -34,7 +33,7 @@ export default defineNuxtComponent({
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
-//  width: 100%;
+  //  width: 100%;
   z-index: 1000;
 }
 </style>

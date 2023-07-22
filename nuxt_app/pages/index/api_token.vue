@@ -1,11 +1,7 @@
 <script>
-
-export default defineNuxtComponent({
-});
+export default defineNuxtComponent({});
 </script>
 
 <template>
-  <div>
-    Api token
-  </div>
+  <div>Api token</div>
 </template>

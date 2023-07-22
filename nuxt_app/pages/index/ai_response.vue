@@ -1,11 +1,7 @@
 <script>
-
-export default defineNuxtComponent({
-});
+export default defineNuxtComponent({});
 </script>
 
 <template>
-  <div>
-    AI Response
-  </div>
+  <div>AI Response</div>
 </template>

@@ -1,13 +1,12 @@
 <script>
 export default defineNuxtComponent({
-  data(){
+  data() {
     return {
       menu,
-    }
+    };
   },
-})
+});
 </script>
-
 
 <template>
   <div class="menu-container">
@@ -33,14 +32,16 @@ export default defineNuxtComponent({
 <style lang="scss" scoped>
 .menu-container {
   backdrop-filter: blur(10px);
-  box-shadow: 0 0 5px var(--accent-color-transparent), /* inner glow */
-              0 0 20px var(--accent-color-transparent), /* middle glow */
-              0 0 15px var(--accent-color-transparent), /* outer glow */
-              0 0 20px var(--accent-color-transparent); /* far outer glow */
-  text-shadow: 0 0 5px var(--accent-color-transparent), /* inner glow */
-              0 0 20px var(--accent-color-transparent), /* middle glow */
-              0 0 15px var(--accent-color-transparent), /* outer glow */
-              0 0 20px var(--accent-color-transparent); /* far outer glow */
+  box-shadow:
+    0 0 5px var(--accent-color-transparent),
+    /* inner glow */ 0 0 20px var(--accent-color-transparent),
+    /* middle glow */ 0 0 15px var(--accent-color-transparent),
+    /* outer glow */ 0 0 20px var(--accent-color-transparent); /* far outer glow */
+  text-shadow:
+    0 0 5px var(--accent-color-transparent),
+    /* inner glow */ 0 0 20px var(--accent-color-transparent),
+    /* middle glow */ 0 0 15px var(--accent-color-transparent),
+    /* outer glow */ 0 0 20px var(--accent-color-transparent); /* far outer glow */
 }
 
 .menu-wrapper {

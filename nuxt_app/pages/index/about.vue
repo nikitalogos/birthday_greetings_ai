@@ -1,11 +1,7 @@
 <script>
-
-export default defineNuxtComponent({
-});
+export default defineNuxtComponent({});
 </script>
 
 <template>
-  <div>
-    About
-  </div>
+  <div>About</div>
 </template>
