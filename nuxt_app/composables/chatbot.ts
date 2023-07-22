@@ -5,17 +5,14 @@ export const chatbot = reactive({
 });
 
 chatbot.run = async (user_prompt) => {
-  const response = await fetch(
-    "http://localhost:8080/api/chatbot",
-    {
-      method: 'POST',
-      body: JSON.stringify({
-        token: chatbot.token,
-        user_prompt,
-      })
-    }
-  );
-  const data = await response.json()
-  console.log(data)
-  return data
+  const response = await fetch("http://localhost:8080/api/chatbot", {
+    method: "POST",
+    body: JSON.stringify({
+      token: chatbot.token,
+      user_prompt,
+    }),
+  });
+  const data = await response.json();
+  console.log(data);
+  return data;
 };
