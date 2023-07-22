@@ -3,9 +3,7 @@ import { reactive, computed } from "vue";
 import { api_token } from "./api_token";
 
 export const chatbot = reactive({
-
-
-  async run (user_prompt) {
+  async run(user_prompt) {
     const response = await fetch("http://localhost:8080/api/chatbot", {
       method: "POST",
       body: JSON.stringify({

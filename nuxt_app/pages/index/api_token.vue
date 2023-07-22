@@ -22,12 +22,11 @@ export default defineNuxtComponent({
         setTimeout(() => {
           this.$router.push("/form");
         }, 1000);
-
       } catch (error) {
         this.is_error = true;
         this.result_str = error.message;
       }
-    }
+    },
   },
 });
 </script>
@@ -53,7 +52,7 @@ export default defineNuxtComponent({
         </button>
       </div>
     </form>
-    <div v-if="result_str" class="result" :class="{error: is_error}">{{ result_str }}</div>
+    <div v-if="result_str" class="result" :class="{ error: is_error }">{{ result_str }}</div>
   </div>
 </template>
 
@@ -63,7 +62,8 @@ export default defineNuxtComponent({
   margin: 0 auto;
 }
 
-.description, result {
+.description,
+result {
   white-space: pre-wrap;
 }
 .result {
