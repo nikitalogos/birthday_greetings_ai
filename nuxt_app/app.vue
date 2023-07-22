@@ -26,4 +26,6 @@ export default defineNuxtComponent({
 
 <style lang="scss" src="assets/style/app.scss"></style>
 
+<style src="@/assets/fonts/semantic-ui-icon/icon.min.css"></style>
+
 <style lang="scss" scoped></style>
