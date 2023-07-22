@@ -4,10 +4,7 @@ import { api_token } from "./api_token";
 
 function export_file(name, text) {
   var element = document.createElement("a");
-  element.setAttribute(
-    "href",
-    "data:text/plain;charset=utf-8," + encodeURIComponent(text),
-  );
+  element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
   element.setAttribute("download", name);
 
   element.style.display = "none";
@@ -31,16 +28,20 @@ export const chatbot = reactive({
   ],
 
   export_txt() {
-    const data_str = this.chat_history.map((item) => {
-      return `~~~~~~~~~~~~~Prompt~~~~~~~~~~~~~\n\n${item.prompt}\n\n` +
-        `~~~~~~~~~~~~~Response~~~~~~~~~~~~~\n\n${item.response}`;
-    }).join("\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n");
+    const data_str = this.chat_history
+      .map((item) => {
+        return (
+          `~~~~~~~~~~~~~Prompt~~~~~~~~~~~~~\n\n${item.prompt}\n\n` +
+          `~~~~~~~~~~~~~Response~~~~~~~~~~~~~\n\n${item.response}`
+        );
+      })
+      .join("\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n");
 
     export_file("birthday_greetings_ai_session.txt", data_str);
   },
 
   export_json() {
-    const data_str = JSON.stringify({chat_history: this.chat_history}, null, 4);
+    const data_str = JSON.stringify({ chat_history: this.chat_history }, null, 4);
     export_file("birthday_greetings_ai_session.json", data_str);
   },
 
