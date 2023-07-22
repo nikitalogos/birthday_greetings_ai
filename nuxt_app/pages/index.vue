@@ -11,7 +11,7 @@ export default defineNuxtComponent({
     },
   },
   created() {
-    this.$router.push("/about");
+    this.$router.push("/api_token");
   },
 });
 </script>
