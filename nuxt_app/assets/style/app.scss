@@ -77,6 +77,28 @@ button {
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~classes~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.button {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  font-weight: bold;
+
+  border: solid 1px transparent;
+  border-radius: 0.25rem;
+
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+
+  &:not(.disabled):hover {
+    border: 1px solid var(--white-color);
+  }
+  &.disabled {
+    cursor: default;
+    opacity: 0.2;
+    pointer-events: none; // disable onClick and other events on disabled button
+  }
+}
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~fonts~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // how to specify font: https://stackoverflow.com/questions/11737168/how-to-import-fonts-in-css
 @font-face {

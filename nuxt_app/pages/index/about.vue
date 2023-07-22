@@ -3,5 +3,5 @@ export default defineNuxtComponent({});
 </script>
 
 <template>
-  <div>About</div>
+  <h1>About</h1>
 </template>

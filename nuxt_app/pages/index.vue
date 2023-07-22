@@ -11,7 +11,7 @@ export default defineNuxtComponent({
     },
   },
   created() {
-    this.$router.push("/form");
+    this.$router.push("/api_token");
   },
 });
 </script>
@@ -28,7 +28,7 @@ export default defineNuxtComponent({
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .sticky {
   position: -webkit-sticky; /* Safari */
   position: sticky;
