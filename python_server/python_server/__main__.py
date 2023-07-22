@@ -1,4 +1,5 @@
 import asyncio
+import argparse
 import json
 import os
 import traceback
@@ -7,40 +8,49 @@ import aiohttp_cors
 import replicate
 from aiohttp import web
 from cerberus import Validator
-
-
-def make_async_route(func, request_validator):
-    def exception_to_json(func):
-        def wrapper(*args, **kwargs):
-            try:
-                return func(*args, **kwargs)
-            except Exception:
-                traceback.print_exc()
-                error_str = f"{func.__name__}:\n{traceback.format_exc()}"
-            return {"error": error_str}
-
-        return wrapper
-
-    async def route(request):
-        r_json = await request.json()
-
-        if not request_validator.validate(r_json):
-            errors_dict = request_validator.errors
-            errors_str = json.dumps(errors_dict, indent=4)
-            return web.json_response({"error": f"Request json validation error:\n{errors_str}"})
-
-        func_safe = exception_to_json(func)
-        loop = asyncio.get_running_loop()
-        response = await loop.run_in_executor(None, func_safe, r_json)
-        return web.json_response(response)
-
-    return route
+from typing import List
 
 
 class Server:
-    def __init__(self, routes_post: dict, port: int):
-        self.routes_post = routes_post
+    def __init__(self, routes_post: dict, port: int, allowed_client_hosts: List[str]):
+        self.routes_post = {
+            k: self._make_async_route(*v)
+            for k, v in routes_post.items()
+        }
         self.port = int(port)
+        self.allowed_client_hosts = allowed_client_hosts
+
+    def _make_async_route(self, func, request_validator):
+        def exception_to_json(func):
+            def wrapper(*args, **kwargs):
+                try:
+                    return func(*args, **kwargs)
+                except Exception:
+                    traceback.print_exc()
+                    error_str = f"{func.__name__}:\n{traceback.format_exc()}"
+                return {"error": error_str}
+
+            return wrapper
+
+        async def route(request):
+            origin = request.headers.get('Origin')
+            if origin not in self.allowed_client_hosts:
+                print(f"invalid origin: {origin=}, {request.headers=}")
+                return web.json_response({"error": "Invalid client host!"})
+
+            r_json = await request.json()
+
+            if not request_validator.validate(r_json):
+                errors_dict = request_validator.errors
+                errors_str = json.dumps(errors_dict, indent=4)
+                return web.json_response({"error": f"Request json validation error:\n{errors_str}"})
+
+            func_safe = exception_to_json(func)
+            loop = asyncio.get_running_loop()
+            response = await loop.run_in_executor(None, func_safe, r_json)
+            return web.json_response(response)
+
+        return route
 
     def _create_app(self):
         app = web.Application(
@@ -49,11 +59,12 @@ class Server:
         cors = aiohttp_cors.setup(
             app,
             defaults={
-                "*": aiohttp_cors.ResourceOptions(
+                host: aiohttp_cors.ResourceOptions(
                     allow_credentials=True,
                     expose_headers="*",
                     allow_headers="*",
                 )
+                for host in self.allowed_client_hosts
             },
         )
 
@@ -100,18 +111,28 @@ def chatbot(r_json):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--port", type=int, default=8080)
+    parser.add_argument("--dev", action="store_true")
+    args = parser.parse_args()
+
+    allowed_client_hosts = ["https://logosnikita.com"]
+    if args.dev:
+        allowed_client_hosts.append("http://localhost:3000")
+
     server = Server(
         routes_post={
-            "/api/chatbot": make_async_route(
+            "/api/chatbot": [
                 chatbot,
-                request_validator=Validator(
+                Validator(
                     {
                         "token": {"type": "string", "required": True},
                         "user_prompt": {"type": "string", "required": True},
                     }
                 ),
-            ),
+            ],
         },
-        port=8080,
+        port=args.port,
+        allowed_client_hosts=allowed_client_hosts,
     )
     server.serve_forever()

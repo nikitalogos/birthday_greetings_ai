@@ -27,6 +27,9 @@ export default defineNuxtComponent({
       param.value = value;
       event.target.value = value; // to update textarea, because :value="param.value" doesn't work
     },
+    async chatbot_run() {
+      alert(await this.chatbot.run("Type first 5 primes"));
+    },
   },
   created() {
     // init params from query string
@@ -39,6 +42,7 @@ export default defineNuxtComponent({
 
 <template>
   <div>
+    <button @click="chatbot_run">chatbot</button>
     <h1 style="text-align: center; position: sticky">Params Create! History</h1>
     <form>
       <div v-for="(group, idx) in params.groups" :key="idx">

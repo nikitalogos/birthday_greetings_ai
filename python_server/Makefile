@@ -10,8 +10,13 @@ install_python:
 	venv/bin/pip install -r requirements.txt
 	venv/bin/pip install -e .
 
-.PHONY: run
-run:
+
+.PHONY: run_dev
+run_dev:
+	${PYTHON} -m python_server --dev
+
+.PHONY: run_prod
+run_prod:
 	${PYTHON} -m python_server
 
 

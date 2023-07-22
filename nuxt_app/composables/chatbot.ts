@@ -13,6 +13,9 @@ chatbot.run = async (user_prompt) => {
     }),
   });
   const data = await response.json();
-  console.log(data);
-  return data;
+
+  if (data.error) {
+    throw new Error(data.error);
+  }
+  return data.message;
 };
