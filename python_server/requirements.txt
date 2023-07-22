@@ -1,0 +1,9 @@
+aiohttp
+aiohttp_cors
+replicate
+cerberus
+
+flake8
+mypy
+black
+isort

@@ -12,6 +12,7 @@ export default defineNuxtComponent({
   data() {
     return {
       params,
+      chatbot,
     };
   },
   methods: {
