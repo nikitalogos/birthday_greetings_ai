@@ -22,10 +22,9 @@ class Server:
             def wrapper(*args, **kwargs):
                 try:
                     return func(*args, **kwargs)
-                except Exception:
+                except Exception as e:
                     traceback.print_exc()
-                    error_str = f"{func.__name__}:\n{traceback.format_exc()}"
-                return {"error": error_str}
+                    return {"error": str(e)}
 
             return wrapper
 
