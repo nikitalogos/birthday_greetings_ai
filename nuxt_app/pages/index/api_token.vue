@@ -32,7 +32,7 @@ export default defineNuxtComponent({
 </script>
 
 <template>
-  <div class="api-token-wrapper">
+  <div class="wrapper">
     <h1>Get API Token</h1>
     <div class="description">{{ api_token.description }}</div>
     <form>
@@ -57,7 +57,7 @@ export default defineNuxtComponent({
 </template>
 
 <style scoped lang="scss">
-.api-token-wrapper {
+.wrapper {
   max-width: var(--page-max-width);
   margin: 0 auto;
 }
