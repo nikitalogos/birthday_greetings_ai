@@ -37,7 +37,8 @@ export default defineNuxtComponent({
 </script>
 
 <template>
-  <div>
+  <div class="wrapper">
+    <h1>Params</h1>
     <form>
       <div v-for="(group, idx) in params.groups" :key="idx">
         <h2>{{ group.label }}</h2>
@@ -119,4 +120,9 @@ export default defineNuxtComponent({
 
 <style lang="scss" src="@/assets/style/form.scss"></style>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.wrapper {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+}
+</style>

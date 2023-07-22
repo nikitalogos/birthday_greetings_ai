@@ -5,22 +5,18 @@ export const menu = reactive({
   items: [
     {
       title: "API Token",
-      id: "api_token",
       path: "/api_token",
     },
     {
-      title: "Form",
-      id: "form",
-      path: "/form",
+      title: "Params",
+      path: "/params",
     },
     {
       title: "AI Response",
-      id: "ai_response",
       path: "/ai_response",
     },
     {
       title: "About",
-      id: "about",
       path: "/about",
     },
   ],
