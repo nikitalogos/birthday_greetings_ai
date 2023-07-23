@@ -19,7 +19,7 @@ export default defineNuxtComponent({
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     },
     response_or_error(message) {
-      return message.is_error ? `Error: ${message.error_str}` : message.response
+      return message.is_error ? `Error: ${message.error_str}` : message.response;
     },
     copy_to_clipboard(event, text) {
       navigator.clipboard.writeText(text);
@@ -60,17 +60,17 @@ div.wrapper
           b You:
           span
             | {{ message.is_prompt_visible ? message.prompt : "..." }}
-          button(v-if="message.is_prompt_visible" @click="copy_to_clipboard($event, message.prompt)" aria-label="Copy prompt to clipboard")
+          button(v-if="message.is_prompt_visible" @click="copy_to_clipboard($event, message.prompt)" v-tooltip aria-label="Copy prompt to clipboard")
             i.clipboard.icon
             span.copied Copied!
-          button(v-if="message.is_prompt_visible" @click="message.is_prompt_visible = false" aria-label="Hide prompt")
+          button(v-if="message.is_prompt_visible" @click="message.is_prompt_visible = false" v-tooltip aria-label="Hide prompt")
             i.eye.icon
-          button(v-else @click="message.is_prompt_visible = true" aria-label="Show prompt")
+          button(v-else @click="message.is_prompt_visible = true" v-tooltip aria-label="Show prompt")
             i.eye.slash.icon
         div.response.phrase(:class="{error: message.is_error}")
           b AI:
           span {{ response_or_error(message) }}
-          button(@click="copy_to_clipboard($event, response_or_error(message))" aria-label="Copy response to clipboard")
+          button(@click="copy_to_clipboard($event, response_or_error(message))" v-tooltip aria-label="Copy response to clipboard")
             i.clipboard.icon
             span.copied Copied!
         div.time
@@ -82,10 +82,10 @@ div.wrapper
     div.shadow.bottom
 
   div
-    button.button(@click="regenerate_response" aria-label="Regenerate response")
+    button.button(@click="regenerate_response")
       i.sync.icon
       | Regenerate response
-    button.button(@click="$router.push('/params')" aria-label="Edit params")
+    button.button(@click="$router.push('/params')")
       i.edit.outline.icon
       | Edit params
 </template>
@@ -174,7 +174,7 @@ div.wrapper
 
           right: 100%;
           margin-right: 5px;
-          padding: 5px;
+          padding: 5px 10px;
           top: 50%;
           margin-top: -50%;
 
@@ -182,7 +182,7 @@ div.wrapper
           border-radius: 4px;
 
           color: var(--accent-color);
-          background-color: var(--bg-color);
+          background-color: rgba(0, 0, 0, 0.8);
 
           visibility: hidden;
           &.show {
