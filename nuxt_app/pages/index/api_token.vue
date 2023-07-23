@@ -31,7 +31,7 @@ export default defineNuxtComponent({
 </script>
 
 <template lang="pug">
-div.wrapper
+div.page-wrapper
   h1 Get API Token
   div.description
     | This app uses #[a(href="https://replicate.com/" target="_blank" rel="noopener") Replicate] as a backend.
@@ -59,11 +59,6 @@ div.wrapper
 </template>
 
 <style scoped lang="scss">
-.wrapper {
-  max-width: var(--page-max-width);
-  margin: 0 auto;
-}
-
 .description,
 result {
   white-space: pre-wrap;
@@ -83,7 +78,10 @@ form {
     width: calc(100% - 100px);
   }
   input {
-    width: calc(100% - 200px);
+    width: calc(100% - 250px);
+  }
+  button.show-token {
+    width: 50px;
   }
   button {
     width: 100px;

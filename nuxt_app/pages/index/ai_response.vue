@@ -43,7 +43,7 @@ export default defineNuxtComponent({
 </script>
 
 <template lang="pug">
-div.wrapper
+div.page-wrapper
   h1 AI Response
   p To clear history, refresh the page
   p You can download conversation:
@@ -92,11 +92,6 @@ div.wrapper
 </template>
 
 <style scoped lang="scss">
-.wrapper {
-  max-width: var(--page-max-width);
-  margin: 0 auto;
-}
-
 .messages-wrapper {
   width: 100%;
   height: 500px;

@@ -1,13 +1,20 @@
 form {
+  button.button {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .param {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: left;
+    flex-wrap: wrap;
 
     margin: 10px 0;
   }
   label {
+    line-height: 2rem;
     width: 150px;
     font-weight: bold;
   }
@@ -25,6 +32,7 @@ form {
   input,
   .dp__main {
     width: calc(100% - 150px);
+    min-width: 200px;
   }
   .textarea-wrapper,
   textarea {

@@ -9,7 +9,7 @@ export default defineNuxtComponent({
 </script>
 
 <template lang="pug">
-div.wrapper
+div.page-wrapper
   h1 About #[i.birthday.cake.icon]
   p Made by #[a(href="https://logosnikita.com/about" target="_blank" rel="noopener") Nikita Logos]
   p #[i.linkify.icon] Website: #[a(href="https://logosnikita.com/" target="_blank" rel="noopener") logosnikita.com]
@@ -41,11 +41,6 @@ div.wrapper
 </template>
 
 <style scoped lang="scss">
-.wrapper {
-  max-width: var(--page-max-width);
-  margin: 0 auto;
-}
-
 h3 {
   margin-top: 50px;
 }

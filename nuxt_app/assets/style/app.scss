@@ -99,6 +99,8 @@ button {
 .button {
   margin: 0.5rem;
   padding: 0.5rem;
+  box-sizing: border-box;
+
   font-weight: bold;
 
   border: solid 1px transparent;
@@ -117,6 +119,12 @@ button {
     opacity: 0.2;
     pointer-events: none; // disable onClick and other events on disabled button
   }
+}
+
+.page-wrapper {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~fonts~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
