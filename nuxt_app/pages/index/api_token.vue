@@ -35,7 +35,7 @@ export default defineNuxtComponent({
       this.is_in_progress = false;
     },
     go_to_replicate() {
-      window.open('https://replicate.com/account/api-tokens', '_blank', 'noopener')
+      window.open("https://replicate.com/account/api-tokens", "_blank", "noopener");
     },
   },
 });

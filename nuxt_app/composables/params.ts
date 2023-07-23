@@ -61,8 +61,8 @@ export const params = reactive({
   target_language: {
     label: "Target language",
     type: "select",
-    value: null,
-    options: ["en", "ru"],
+    value: 'English',
+    options: ["English", "Russian"],
   },
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~styling~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -109,6 +109,9 @@ export const params = reactive({
     value: null,
   },
 });
+for (let key in params) {
+  params[key].name = key;
+}
 
 const age_value = computed(() => {
   const now = new Date();
@@ -186,8 +189,75 @@ params.values = computed(() => {
   const dict = {};
   params.groups.forEach((group) => {
     group.items.forEach((item) => {
-      dict[item.label] = item.value;
+      dict[item.name] = item.value;
     });
   });
   return dict;
 });
+
+params.prompt = computed(() => {
+  const v = params.values;
+
+  let prompt = `I want to congratulate ${v.name} on their birthday. Please create a birthday greeting.\n`;
+  if (v.date_of_birth) {
+    prompt += `${v.name} was born on ${v.date_of_birth}.\n`;
+
+    prompt += `Their age is ${v.age}.\n`;
+    if (!params.age.show) {
+      prompt += `Please do not mention ${v.name}'s age in the greeting.\n`;
+    }
+
+    prompt += `Their zodiac sign is ${v.zodiac}.\n`;
+    if (!params.zodiac.show) {
+      prompt += `Please do not mention ${v.name}'s zodiac sign in the greeting.\n`;
+    }
+    prompt += "\n";
+  }
+
+  if (v.gender) {
+    prompt += `${v.name} identifies as ${v.gender}`
+  }
+  if (v.relationship) {
+    prompt += `I am ${v.name}'s ${v.relationship}.`
+  }
+  if (v.profession) {
+    prompt += `${v.name} is a ${v.profession}.`
+  }
+  if (v.hobby) {
+    prompt += `${v.name} enjoys ${v.hobby}.`
+  }
+  prompt += "\n";
+
+  if (v.what_to_wish.length > 0) {
+    prompt += "Please include the following wishes in the greeting: ";
+    prompt += v.what_to_wish.map((wish) => `"${wish}"`).join(", ");
+    prompt += "\n";
+  }
+
+  prompt += `The birthday greeting should be in ${v.target_language} language.\n`;
+  prompt += "\n";
+
+  if (v.use_emojis !== "no") {
+    prompt += `Please include ${v.use_emojis} emojis in the greeting.\n`;
+  }
+  if (v.greeting_length !== "medium") {
+    prompt += `The greeting should be ${v.greeting_length}.\n`;
+  }
+  if (v.greeting_style) {
+    prompt += `Please use a ${v.greeting_style} style for the greeting.\n`;
+  }
+  if (v.theme) {
+    prompt += `Please incorporate a ${v.theme} theme into the greeting.\n`;
+  }
+  if (v.use_quotation) {
+    prompt += "Please include a relevant famous quotation in the greeting.\n";
+  }
+  if (v.use_affirmation) {
+    prompt += "Please include a motivating affirmation in the greeting.\n";
+  }
+
+  if (v.comment) {
+    prompt += `Additional context: ${v.comment}\n`;
+  }
+  return prompt;
+})
