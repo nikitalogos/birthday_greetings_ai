@@ -108,6 +108,7 @@ button {
   cursor: pointer;
   user-select: none;
 
+  border: 1px solid var(--border-color);
   &:not(.disabled):hover {
     border: 1px solid var(--white-color);
   }

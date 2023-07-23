@@ -31,35 +31,32 @@ export default defineNuxtComponent({
 });
 </script>
 
-<template>
-  <div class="wrapper">
-    <h1>Get API Token</h1>
-    <div class="description">{{ api_token.description }}</div>
-    <form>
-      <div class="param">
-        <label for="token">Token</label>
-        <input :type="is_token_visible ? 'text' : 'password'" id="token" v-model="api_token.token" />
+<template lang="pug">
+div.wrapper
+  h1 Get API Token
+  div.description
+    | This app uses #[a(href="https://replicate.com/" target="_blank" rel="noopener") Replicate] as a backend.
+    | <br/>To proceed, you need to obtain API token from it.
+    | <br/>We don't store your token: it will be deleted if you leave page or refresh it.
+  form
+    div.param
+      label(for="url") Replicate URL
+      button.button
+        a(href="https://replicate.com/" target="_blank" rel="noopener")
+          | Go to Replicate.com
+          i.external.alternate.icon
+    div.param
+      label(for="token") Token
+      input(:type="is_token_visible ? 'text' : 'password'" id="token" v-model="api_token.token")
+      button.show-token(v-if="is_token_visible" v-tooltip aria-label="Hide token" @click="is_token_visible = false")
+        i.white.eye.icon
+      button.show-token(v-else v-tooltip aria-label="Show token" @click="is_token_visible = true")
+        i.white.eye.slash.icon
+      button.button(:class="{ disabled: !api_token.token }" type="submit" @click.prevent="submit_token")
+        | Next
+        i.white.arrow.right.icon
 
-        <button
-          v-if="is_token_visible"
-          class="show-token"
-          v-tooltip
-          aria-label="Hide token"
-          @click="is_token_visible = false"
-        >
-          <i class="white eye icon"></i>
-        </button>
-        <button v-else class="show-token" v-tooltip aria-label="Show token" @click="is_token_visible = true">
-          <i class="white eye slash icon"></i>
-        </button>
-
-        <button class="button" :class="{ disabled: !api_token.token }" type="submit" @click.prevent="submit_token">
-          Next <i class="white arrow right icon"></i>
-        </button>
-      </div>
-    </form>
-    <div v-if="result_str" class="result" :class="{ error: is_error }">{{ result_str }}</div>
-  </div>
+  div.result(v-if="result_str" :class="{ error: is_error }") {{ result_str }}
 </template>
 
 <style scoped lang="scss">

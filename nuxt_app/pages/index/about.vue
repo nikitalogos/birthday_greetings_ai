@@ -1,5 +1,11 @@
 <script>
-export default defineNuxtComponent({});
+import GithubButton from 'vue-github-button'
+
+export default defineNuxtComponent({
+  components: {
+    GithubButton
+  },
+});
 </script>
 
 <template lang="pug">
@@ -25,10 +31,13 @@ div.wrapper
   ul
     li.align-github-star
       span If you like this project, leave star on GitHub:
-      iframe(
-        src="https://ghbtns.com/github-btn.html?user=nikitalogos&repo=birthday_greetings_ai&type=star&count=true"
-        frameborder="0" scrolling="0" width="150" height="20" title="GitHub"
-      )
+      github-button.gh(
+        href="https://github.com/nikitalogos/birthday_greetings_ai"
+        data-color-scheme="no-preference: dark; light: dark; dark: dark;"
+        data-show-count="true"
+        aria-label="Star nikitalogos/birthday_greetings_ai on GitHub"
+      ) Star
+
 </template>
 
 <style scoped lang="scss">
@@ -45,9 +54,8 @@ h3 {
   span {
     margin-right: 5px;
   }
-  iframe {
+  .gh {
     vertical-align: middle;
-    margin-top: -1px;
   }
 }
 </style>
