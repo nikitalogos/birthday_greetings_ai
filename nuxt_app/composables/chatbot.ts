@@ -18,12 +18,20 @@ function export_file(name, text) {
 export const chatbot = reactive({
   chat_history: [
     {
-      prompt: "Hello",
-      response: "Hi, how are you?",
+      timestamp_ms: new Date().getTime(),
+      duration_ms: 10.533 * 1000,
+      user_prompt: "Hello, how are you?",
+      response: "I'm fine, how are you?",
+      is_error: false,
+      error_str: "",
     },
     {
-      prompt: "I'm fine, how are you?",
-      response: "I'm fine too, thanks for asking.",
+      timestamp_ms: new Date().getTime(),
+      duration_ms: 10.533 * 1000,
+      user_prompt: "Hello, how are you?",
+      response: "",
+      is_error: true,
+      error_str: "Access denied",
     },
   ],
 

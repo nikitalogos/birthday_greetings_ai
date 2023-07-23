@@ -6,7 +6,7 @@ export default defineNuxtComponent({});
 div.wrapper
   h1 About #[i.birthday.cake.icon]
   p Made by #[a(href="https://logosnikita.com/about" target="_blank" rel="noopener") Nikita Logos]
-  p #[i.globe.icon] Website: #[a(href="https://logosnikita.com/" target="_blank" rel="noopener") logosnikita.com]
+  p #[i.linkify.icon] Website: #[a(href="https://logosnikita.com/" target="_blank" rel="noopener") logosnikita.com]
   p #[i.github.icon] Github: #[a(href="https://github.com/nikitalogos/birthday_greetings_ai" target="_blank" rel="noopener") birthday_greetings_ai]
 
 

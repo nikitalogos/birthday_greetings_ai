@@ -5,6 +5,20 @@ export default defineNuxtComponent({
       chatbot,
     };
   },
+  methods: {
+    format_date(timestamp_ms) {
+      const date = new Date(timestamp_ms);
+
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    },
+  },
 });
 </script>
 
@@ -19,8 +33,12 @@ div.wrapper
   div.messages-wrapper
     div.messages
       div.message(v-for="message in chatbot.chat_history" :key="message.time")
-        div.message__text {{ message.response }}
-        div.message__time {{ message.time }}
+        div.text {{ message.response }}
+        div.time
+          i.time.icon
+          | {{ format_date(message.timestamp_ms) }}
+          i.hourglass.end.icon(style="margin-left: 10px")
+          | {{ (message.duration_ms / 1000).toFixed(2) }}s
     div.shadow.top
     div.shadow.bottom
 </template>
@@ -75,6 +93,14 @@ div.wrapper
     padding: 10px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
+
+    width: calc(100% - 40px);
+
+    .time {
+      font-size: 0.8em;
+      color: var(--color-faded);
+      text-align: right;
+    }
   }
 }
 </style>
