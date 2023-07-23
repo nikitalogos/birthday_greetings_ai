@@ -122,7 +122,8 @@ form {
   }
 }
 
-.loading, .result {
+.loading,
+.result {
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid;
@@ -145,7 +146,6 @@ form {
     color: var(--error-color);
   }
 }
-
 
 .description {
   display: flex;
