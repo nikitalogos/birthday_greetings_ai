@@ -23,8 +23,10 @@ div.page-wrapper
     a(href="https://ai.meta.com/resources/models-and-libraries/llama-downloads/" target="_blank" rel="noopener")
       |  Llama 2 Community License Agreement
   p
-    | LLaMA 2 is served by #[a(href="https://replicate.com/" target="_blank" rel="noopener") Replicate]
+    | LLaMA 2 is served by #[a(href="https://replicate.com/" target="_blank" rel="noopener") Replicate.com]
     | under #[a(href="https://replicate.com/terms" target="_blank" rel="noopener") Replicate Terms of Use]
+  p
+    | Arts were generated via #[b Stable Diffusion XL] at #[a(href="https://clipdrop.co/stable-diffusion" target="_blank" rel="noopener") Clipdrop.co]
 
 
   h3 Support me:
