@@ -15,7 +15,7 @@ export default defineNuxtComponent({
     async submit_token() {
       // check token
       try {
-        await this.chatbot.run("Say hello");
+        await this.chatbot.run_impl("Say hello");
         this.is_error = false;
         this.result_str = "Token is valid!";
 

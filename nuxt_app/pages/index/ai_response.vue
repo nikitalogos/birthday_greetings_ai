@@ -18,6 +18,29 @@ export default defineNuxtComponent({
 
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     },
+    response_or_error(message) {
+      return message.is_error ? `Error: ${message.error_str}` : message.response
+    },
+    copy_to_clipboard(event, text) {
+      navigator.clipboard.writeText(text);
+
+      const label_el = event.currentTarget.querySelector(".copied");
+      label_el.classList.add("show");
+      setTimeout(() => {
+        label_el.classList.remove("show");
+      }, 1000);
+    },
+    scroll_to_bottom() {
+      const messages = this.$el.querySelector(".messages");
+      messages.scrollTop = messages.scrollHeight;
+    },
+    async regenerate_response() {
+      await this.chatbot.run();
+      this.scroll_to_bottom();
+    },
+  },
+  mounted() {
+    this.scroll_to_bottom();
   },
 });
 </script>
@@ -37,13 +60,19 @@ div.wrapper
           b You:
           span
             | {{ message.is_prompt_visible ? message.prompt : "..." }}
-            button(v-if="message.is_prompt_visible" @click="message.is_prompt_visible = false" aria-label="Hide prompt")
-              i.eye.icon
-            button(v-else @click="message.is_prompt_visible = true" aria-label="Show prompt")
-              i.eye.slash.icon
+          button(v-if="message.is_prompt_visible" @click="copy_to_clipboard($event, message.prompt)" aria-label="Copy prompt to clipboard")
+            i.clipboard.icon
+            span.copied Copied!
+          button(v-if="message.is_prompt_visible" @click="message.is_prompt_visible = false" aria-label="Hide prompt")
+            i.eye.icon
+          button(v-else @click="message.is_prompt_visible = true" aria-label="Show prompt")
+            i.eye.slash.icon
         div.response.phrase(:class="{error: message.is_error}")
           b AI:
-          span {{ message.is_error ? `Error: ${message.error_str}` : message.response }}
+          span {{ response_or_error(message) }}
+          button(@click="copy_to_clipboard($event, response_or_error(message))" aria-label="Copy response to clipboard")
+            i.clipboard.icon
+            span.copied Copied!
         div.time
           i.time.icon
           | {{ format_date(message.timestamp_ms) }}
@@ -51,6 +80,14 @@ div.wrapper
           | {{ (message.duration_ms / 1000).toFixed(2) }}s
     div.shadow.top
     div.shadow.bottom
+
+  div
+    button.button(@click="regenerate_response" aria-label="Regenerate response")
+      i.sync.icon
+      | Regenerate response
+    button.button(@click="$router.push('/params')" aria-label="Edit params")
+      i.edit.outline.icon
+      | Edit params
 </template>
 
 <style scoped lang="scss">
@@ -95,6 +132,7 @@ div.wrapper
 
   height: 100%;
   padding: 10px;
+  box-sizing: padding-box;
 
   overflow-y: scroll;
 
@@ -104,7 +142,8 @@ div.wrapper
     border: 1px solid var(--border-color);
     border-radius: 4px;
 
-    width: calc(100% - 40px);
+    width: calc(100% - 20px);
+    box-sizing: border-box;
 
     .phrase {
       display: flex;
@@ -116,23 +155,51 @@ div.wrapper
 
       b {
         width: 40px;
-      }
-      span {
-        flex: 1;
+        flex-shrink: 0;
       }
       button {
+        height: fit-content;
         margin-left: 10px;
         font-size: 0.8rem;
+
         color: var(--color-faded);
         :hover {
           color: var(--color);
         }
+
+        position: relative;
+        span.copied {
+          position: absolute;
+          z-index: 1;
+
+          right: 100%;
+          margin-right: 5px;
+          padding: 5px;
+          top: 50%;
+          margin-top: -50%;
+
+          border: 1px solid;
+          border-radius: 4px;
+
+          color: var(--accent-color);
+          background-color: var(--bg-color);
+
+          visibility: hidden;
+          &.show {
+            visibility: visible;
+          }
+        }
       }
-    }
-    .response {
-      &.error {
-        color: var(--error-color);
-        font-style: italic;
+
+      &.response {
+        &.error {
+          color: var(--error-color);
+          font-style: italic;
+        }
+
+        button {
+          font-size: 1rem;
+        }
       }
     }
 

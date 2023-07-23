@@ -11,7 +11,7 @@ export default defineNuxtComponent({
     },
   },
   created() {
-    this.$router.push("/api_token");
+    if (this.$route.path == "/") this.$router.push("/api_token");
   },
 });
 </script>
