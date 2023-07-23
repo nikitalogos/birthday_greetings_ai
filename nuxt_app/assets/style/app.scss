@@ -2,14 +2,14 @@
 // for colors adjustment: https://color.adobe.com/ru/create/color-wheel
 :root {
   // colors
-  --bg-color: #111;
-  --input-bg-color: #333;
+  --bg-color: #222;
+  --input-bg-color: #444;
 
   --color-faded: #7f7f7f;
   --color: #eee;
 
-  --accent-color: #c0c;
-  --accent-color-transparent: #cc00cc50;
+  --accent-color: #FFC452; // #c0c;
+  --accent-color-transparent: #FFC45250; // #cc00cc50;
 
   --border-color: #7f7f7f;
   --border-color-active: #fff;
@@ -73,6 +73,23 @@ button {
 
   // apply styles
   font-weight: bold;
+}
+
+// ~~~~~~~~~scrollbars~~~~~~~~~
+*::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--accent-color-transparent);
+  border-radius: 1.5px;
+
+  &:hover {
+    background: var(--accent-color);
+  }
+}
+*::-webkit-scrollbar-corner {
+  opacity: 0;
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~classes~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

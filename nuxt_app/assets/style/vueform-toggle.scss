@@ -1,10 +1,10 @@
 .toggle-container {
-  --toggle-width: 4.5rem;
+  --toggle-width: 5rem;
   --toggle-height: 1.25rem;
   --toggle-border: 0.125rem;
   --toggle-font-size: 0.75rem;
   --toggle-duration: 150ms;
-  --toggle-bg-on: var(--accent-color);
+  --toggle-bg-on: var(--accent-color-transparent);
   --toggle-bg-off: var(--input-bg-color);
   --toggle-bg-on-disabled: #d1d5db;
   --toggle-bg-off-disabled: #e5e7eb;
