@@ -18,9 +18,6 @@ export default defineNuxtComponent({
 
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     },
-    response_or_error(message) {
-      return message.is_error ? `Error: ${message.error_str}` : message.response;
-    },
     copy_to_clipboard(event, text) {
       navigator.clipboard.writeText(text);
 
@@ -56,28 +53,32 @@ div.wrapper
   div.messages-wrapper
     div.messages
       div.message(v-for="message in chatbot.chat_history" :key="message.time")
-        div.prompt.phrase
-          b You:
-          span
-            | {{ message.is_prompt_visible ? message.prompt : "..." }}
-          button(v-if="message.is_prompt_visible" @click="copy_to_clipboard($event, message.prompt)" v-tooltip aria-label="Copy prompt to clipboard")
-            i.clipboard.icon
-            span.copied Copied!
-          button(v-if="message.is_prompt_visible" @click="message.is_prompt_visible = false" v-tooltip aria-label="Hide prompt")
-            i.eye.icon
-          button(v-else @click="message.is_prompt_visible = true" v-tooltip aria-label="Show prompt")
-            i.eye.slash.icon
-        div.response.phrase(:class="{error: message.is_error}")
-          b AI:
-          span {{ response_or_error(message) }}
-          button(@click="copy_to_clipboard($event, response_or_error(message))" v-tooltip aria-label="Copy response to clipboard")
-            i.clipboard.icon
-            span.copied Copied!
-        div.time
-          i.time.icon
-          | {{ format_date(message.timestamp_ms) }}
-          i.hourglass.end.icon(style="margin-left: 10px")
-          | {{ (message.duration_ms / 1000).toFixed(2) }}s
+        div.loading(v-if="!message.completed")
+          div.ui.active.inline.loader
+          div Waiting for response...
+        div(v-else)
+          div.prompt.phrase
+            b You:
+            span
+              | {{ message.is_prompt_visible ? message.prompt : "..." }}
+            button(v-if="message.is_prompt_visible" @click="copy_to_clipboard($event, message.prompt)" v-tooltip aria-label="Copy prompt to clipboard")
+              i.clipboard.icon
+              span.copied Copied!
+            button(v-if="message.is_prompt_visible" @click="message.is_prompt_visible = false" v-tooltip aria-label="Hide prompt")
+              i.eye.icon
+            button(v-else @click="message.is_prompt_visible = true" v-tooltip aria-label="Show prompt")
+              i.eye.slash.icon
+          div.response.phrase(:class="{error: message.is_error}")
+            b AI:
+            span {{ chatbot.response_or_error(message) }}
+            button(@click="copy_to_clipboard($event, chatbot.response_or_error(message))" v-tooltip aria-label="Copy response to clipboard")
+              i.clipboard.icon
+              span.copied Copied!
+          div.time
+            i.time.icon
+            | {{ format_date(message.timestamp_ms) }}
+            i.hourglass.end.icon(style="margin-left: 10px")
+            | {{ (message.duration_ms / 1000).toFixed(2) }}s
     div.shadow.top
     div.shadow.bottom
 
@@ -144,6 +145,16 @@ div.wrapper
 
     width: calc(100% - 20px);
     box-sizing: border-box;
+
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      div:not(:last-child) {
+        margin-bottom: 10px;
+      }
+    }
 
     .phrase {
       display: flex;

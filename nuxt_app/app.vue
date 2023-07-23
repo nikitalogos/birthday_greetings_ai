@@ -28,5 +28,6 @@ export default defineNuxtComponent({
 <style lang="scss" src="assets/style/tooltip.scss"></style>
 
 <style src="@/assets/fonts/semantic-ui-icon/icon.css"></style>
+<style src="public/semantic-ui/components/loader.min.css"></style>
 
 <style lang="scss" scoped></style>

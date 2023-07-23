@@ -25,6 +25,7 @@ export const chatbot = reactive({
       response: "I'm fine, how are you?",
       is_error: false,
       error_str: "",
+      completed: true,
     },
     {
       timestamp_ms: new Date().getTime(),
@@ -35,6 +36,7 @@ export const chatbot = reactive({
         "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
       is_error: false,
       error_str: "",
+      completed: true,
     },
     {
       timestamp_ms: new Date().getTime(),
@@ -45,6 +47,7 @@ export const chatbot = reactive({
         "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
       is_error: false,
       error_str: "",
+      completed: true,
     },
     {
       timestamp_ms: new Date().getTime(),
@@ -63,15 +66,26 @@ export const chatbot = reactive({
       response: "",
       is_error: true,
       error_str: "Access denied",
+      completed: true,
     },
   ],
+
+  response_or_error(message) {
+    if (!message.completed) {
+      return "Waiting for response...";
+    }
+    if (message.is_error) {
+      return `Error: ${message.error_str}`;
+    }
+    return message.response;
+  },
 
   export_txt() {
     const data_str = this.chat_history
       .map((item) => {
         return (
           `~~~~~~~~~~~~~Prompt~~~~~~~~~~~~~\n\n${item.prompt}\n\n` +
-          `~~~~~~~~~~~~~Response~~~~~~~~~~~~~\n\n${item.response}`
+          `~~~~~~~~~~~~~Response~~~~~~~~~~~~~\n\n${this.response_or_error(item)}`
         );
       })
       .join("\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n");
@@ -102,11 +116,24 @@ export const chatbot = reactive({
 
   async run() {
     const prompt = params.prompt;
+    const start_time = Date.now();
 
+    let response = "";
     const is_error = false;
     let error_str = "";
-    let response = "";
-    const start_time = Date.now();
+
+    const message = {
+      timestamp_ms: start_time.getTime(),
+      prompt,
+      // temporary values:
+      duration_ms: 0,
+      response,
+      is_error,
+      error_str,
+      completed: false,
+    };
+    this.chat_history.push(message);
+
     try {
       response = await this.run_impl(prompt);
     } catch (error) {
@@ -115,14 +142,10 @@ export const chatbot = reactive({
     }
     const end_time = Date.now();
 
-    const message = {
-      timestamp_ms: end_time.getTime(),
-      duration_ms: end_time - start_time,
-      prompt,
-      response,
-      is_error,
-      error_str,
-    };
-    this.chat_history.push(message);
+    message.duration_ms = end_time - start_time;
+    message.response = response;
+    message.is_error = is_error;
+    message.error_str = error_str;
+    message.completed = true;
   },
 });

@@ -40,7 +40,13 @@ export default defineNuxtComponent({
         <label for="token">Token</label>
         <input :type="is_token_visible ? 'text' : 'password'" id="token" v-model="api_token.token" />
 
-        <button v-if="is_token_visible" class="show-token" v-tooltip aria-label="Hide token" @click="is_token_visible = false">
+        <button
+          v-if="is_token_visible"
+          class="show-token"
+          v-tooltip
+          aria-label="Hide token"
+          @click="is_token_visible = false"
+        >
           <i class="white eye icon"></i>
         </button>
         <button v-else class="show-token" v-tooltip aria-label="Show token" @click="is_token_visible = true">
