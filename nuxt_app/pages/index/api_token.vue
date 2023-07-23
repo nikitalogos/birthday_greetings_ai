@@ -43,11 +43,11 @@ export default defineNuxtComponent({
 
 <template lang="pug">
 div.page-wrapper
+  div.cover-wrapper
+    img(src="cover.png" alt="Cover")
   h1 Get API Token
-  div.description
-    | This app uses #[a(href="https://replicate.com/" target="_blank" rel="noopener") Replicate] as a backend.
-    | <br/>To proceed, you need to obtain API token from it.
-    | <br/>We don't store your token: it will be deleted if you leave page or refresh it.
+  div.motivation
+    | It's free and will take 5 sec!
   form
     div.param
       label(for="url") Get token
@@ -69,18 +69,39 @@ div.page-wrapper
     div.ui.active.inline.loader
     div(style="color: var(--accent-color);") Your token is being checked, please wait...
   div.result(v-if="result_str" :class="{ error: is_error }") {{ result_str }}
+
+  div.description
+    i.info.circle.icon(style="margin-right: 10px; font-size: 1.5rem; color: var(--accent-color);")
+    div
+      | This app uses #[a(href="https://replicate.com/" target="_blank" rel="noopener") Replicate] as a backend.
+      | <br/>{{ prevent_short_word_hangs("To proceed, you need to obtain API token from it.") }}
+      | <br/>{{ prevent_short_word_hangs("We don't store your token: it will be deleted if you leave page or refresh it.") }}
 </template>
 
 <style scoped lang="scss">
-.description,
-result {
-  white-space: pre-wrap;
-}
-.result {
-  color: var(--accent-color);
-  &.error {
-    color: var(--error-color);
+.cover-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    margin-top: 50px;
+    width: 70%;
+    display: block;
   }
+}
+
+.motivation,
+.description,
+.result {
+  white-space: pre-line;
+}
+.motivation {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 10px 0;
+
+  color: var(--accent-color);
 }
 
 form {
@@ -101,13 +122,38 @@ form {
   }
 }
 
+.loading, .result {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid;
+  border-radius: 5px;
+}
 .loading {
   display: flex;
   flex-direction: column;
   align-items: center;
 
+  border-color: var(--border-color);
+
   div:not(:last-child) {
     margin-bottom: 10px;
   }
+}
+.result {
+  color: var(--accent-color);
+  &.error {
+    color: var(--error-color);
+  }
+}
+
+
+.description {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
 }
 </style>

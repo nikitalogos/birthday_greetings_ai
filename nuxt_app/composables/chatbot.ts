@@ -120,7 +120,7 @@ export const chatbot = reactive({
     const start_time = Date.now();
 
     let response = "";
-    const is_error = false;
+    let is_error = false;
     let error_str = "";
 
     const message = {
