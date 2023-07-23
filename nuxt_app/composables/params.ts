@@ -255,6 +255,7 @@ params.prompt = computed(() => {
   if (v.use_affirmation) {
     prompt += "Please include a motivating affirmation in the greeting.\n";
   }
+  prompt += "\n";
 
   if (v.comment) {
     prompt += `Additional context: ${v.comment}\n`;

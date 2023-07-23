@@ -207,6 +207,11 @@ div.page-wrapper
           font-size: 1rem;
         }
       }
+
+      &.prompt,
+      &.response {
+        white-space: pre-line;
+      }
     }
 
     .time {

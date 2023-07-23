@@ -101,7 +101,7 @@ div.page-wrapper
         )
 
   pre {{ JSON.stringify(params.values, null, 4) }}
-  p {{ params.prompt }}
+  p(style="white-space: pre-line;") {{ params.prompt }}
 </template>
 
 <style src="@vuepic/vue-datepicker/dist/main.css"></style>
