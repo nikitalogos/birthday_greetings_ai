@@ -20,7 +20,7 @@ export const chatbot = reactive({
     {
       timestamp_ms: new Date().getTime(),
       duration_ms: 10.533 * 1000,
-      user_prompt: "Hello, how are you?",
+      prompt: "Hello, how are you?",
       response: "I'm fine, how are you?",
       is_error: false,
       error_str: "",
@@ -28,7 +28,15 @@ export const chatbot = reactive({
     {
       timestamp_ms: new Date().getTime(),
       duration_ms: 10.533 * 1000,
-      user_prompt: "Hello, how are you?",
+      prompt: "Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?",
+      response: "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
+      is_error: false,
+      error_str: "",
+    },
+    {
+      timestamp_ms: new Date().getTime(),
+      duration_ms: 10.533 * 1000,
+      prompt: "Hello, how are you?",
       response: "",
       is_error: true,
       error_str: "Access denied",
@@ -53,12 +61,12 @@ export const chatbot = reactive({
     export_file("birthday_greetings_ai_session.json", data_str);
   },
 
-  async run(user_prompt) {
+  async run(prompt) {
     const response = await fetch("http://localhost:8080/api/chatbot", {
       method: "POST",
       body: JSON.stringify({
         token: api_token.token,
-        user_prompt,
+        prompt,
       }),
     });
     const data = await response.json();
@@ -69,13 +77,13 @@ export const chatbot = reactive({
     return data.message;
   },
 
-  async run_and_add_to_history(user_prompt) {
+  async run_and_add_to_history(prompt) {
     const is_error = false;
     let error_str = "";
     let response = "";
     const start_time = Date.now();
     try {
-      response = await this.run(user_prompt);
+      response = await this.run(prompt);
     } catch (error) {
       is_error = true;
       error_str = error.message;
@@ -85,7 +93,7 @@ export const chatbot = reactive({
     const message = {
       timestamp_ms: end_time.getTime(),
       duration_ms: end_time - start_time,
-      user_prompt,
+      prompt,
       response,
       is_error,
       error_str,

@@ -10,11 +10,11 @@ export default defineNuxtComponent({
       const date = new Date(timestamp_ms);
 
       const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      const hours = String(date.getHours()).padStart(2, '0');
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-      const seconds = String(date.getSeconds()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const hours = String(date.getHours()).padStart(2, "0");
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+      const seconds = String(date.getSeconds()).padStart(2, "0");
 
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     },
@@ -33,7 +33,17 @@ div.wrapper
   div.messages-wrapper
     div.messages
       div.message(v-for="message in chatbot.chat_history" :key="message.time")
-        div.text {{ message.response }}
+        div.prompt.phrase
+          b You:
+          span
+            | {{ message.is_prompt_visible ? message.prompt : "..." }}
+            button(v-if="message.is_prompt_visible" @click="message.is_prompt_visible = false" aria-label="Hide prompt")
+              i.eye.icon
+            button(v-else @click="message.is_prompt_visible = true" aria-label="Show prompt")
+              i.eye.slash.icon
+        div.response.phrase(:class="{error: message.is_error}")
+          b AI:
+          span {{ message.is_error ? `Error: ${message.error_str}` : message.response }}
         div.time
           i.time.icon
           | {{ format_date(message.timestamp_ms) }}
@@ -95,6 +105,36 @@ div.wrapper
     border-radius: 4px;
 
     width: calc(100% - 40px);
+
+    .phrase {
+      display: flex;
+      flex-direction: row;
+      align-items: top;
+      justify-content: left;
+
+      margin-bottom: 10px;
+
+      b {
+        width: 40px;
+      }
+      span {
+        flex: 1;
+      }
+      button {
+        margin-left: 10px;
+        font-size: 0.8rem;
+        color: var(--color-faded);
+        :hover {
+          color: var(--color);
+        }
+      }
+    }
+    .response {
+      &.error {
+        color: var(--error-color);
+        font-style: italic;
+      }
+    }
 
     .time {
       font-size: 0.8em;

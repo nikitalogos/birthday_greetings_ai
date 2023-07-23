@@ -69,7 +69,7 @@ result {
 .result {
   color: var(--accent-color);
   &.error {
-    color: red;
+    color: var(--error-color);
   }
 }
 
