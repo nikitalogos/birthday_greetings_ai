@@ -36,78 +36,72 @@ export default defineNuxtComponent({
 });
 </script>
 
-<template>
-  <div class="page-wrapper">
-    <h1>Params</h1>
-    <form>
-      <div v-for="(group, idx) in params.groups" :key="idx">
-        <h2>{{ group.label }}</h2>
-        <div v-for="param in group.items" class="param">
-          <label v-if="group.label !== 'Comment'" :for="param.label">{{ param.label }}</label>
+<template lang="pug">
+div.page-wrapper
+  h1 Params
+  form
+    div(v-for="(group, idx) in params.groups" :key="idx")
+      h2 {{ group.label }}
+      div.param(v-for="param in group.items")
+        label(v-if="group.label !== 'Comment'" :for="param.label") {{ param.label }}
 
-          <!-- can't use :flow="['year', 'month', 'calendar']" because of a bug. But maybe it will be fixed soon... todo: watch this-->
-          <VueDatePicker
-            v-if="param.type === 'date'"
+        //- can't use :flow="['year', 'month', 'calendar']" because of a bug. But maybe it will be fixed soon... todo: watch this
+        VueDatePicker(
+          v-if="param.type === 'date'"
+          v-model="param.value"
+          :id="param.label"
+          auto-apply
+          :enable-time-picker="false"
+          :format="date_format"
+          dark
+          text-input
+          :text-input-options="{ format: 'yyyy-MM-dd' }"
+          placeholder="Select date or type it in format YYYY-MM-DD"
+        )
+        span.dynamic(v-else-if="param.type === 'dynamic'")
+          div.value {{ param.value ?? "?" }} {{ param.label === "Age" ? "years" : "" }}
+          toggle(v-model="param.show" :id="param.label" onLabel="enabled" offLabel="hidden")
+          div.hint {{ param.show ? "(press to hide)" : "(press to enable)" }}
+        div.multi-select-wrapper(v-else-if="param.type === 'select'")
+          multiselect(
             v-model="param.value"
             :id="param.label"
-            auto-apply
-            :enable-time-picker="false"
-            :format="date_format"
-            dark
-            text-input
-            :text-input-options="{ format: 'yyyy-MM-dd' }"
-            placeholder="Select date or type it in format YYYY-MM-DD"
-          ></VueDatePicker>
-          <span v-else-if="param.type === 'dynamic'" class="dynamic">
-            <div class="value">{{ param.value ?? "?" }} {{ param.label === "Age" ? "years" : "" }}</div>
-            <toggle v-model="param.show" :id="param.label" onLabel="enabled" offLabel="hidden" />
-            <div class="hint">{{ param.show ? "(press to hide)" : "(press to enable)" }}</div>
-          </span>
-          <div v-else-if="param.type === 'select'" class="multi-select-wrapper">
-            <multiselect
-              v-model="param.value"
-              :id="param.label"
-              :options="param.options"
-              placeholder="Select option or type your own variant"
-              :searchable="true"
-              :createOption="true"
-            ></multiselect>
-          </div>
-          <div v-else-if="param.type === 'multiselect'" class="multi-select-wrapper">
-            <div class="hint">(Click on wish or press Enter to add it)</div>
-            <multiselect
-              v-model="param.value"
-              :id="param.label"
-              :options="param.options"
-              mode="tags"
-              placeholder="Select or type your own wishes"
-              :searchable="true"
-              :createOption="true"
-            ></multiselect>
-          </div>
-          <toggle v-else-if="param.type === 'toggle'" v-model="param.value" onLabel="yes" offLabel="no" />
-          <div v-else-if="param.type === 'textarea'" class="textarea-wrapper">
-            <textarea
-              :id="param.label"
-              rows="10"
-              :placeholder="`Type your ${param.label.toLowerCase()} here`"
-              @input="limit_textarea_input($event, param)"
-              :value="param.value"
-            ></textarea>
-            <div class="symbols-used">{{ param.max_length - (param.value?.length ?? 0) }} symbols left</div>
-          </div>
-          <input
-            v-else
-            :type="param.type"
-            :id="param.label"
+            :options="param.options"
+            placeholder="Select option or type your own variant"
+            :searchable="true"
+            :createOption="true"
+          )
+        div.multi-select-wrapper(v-else-if="param.type === 'multiselect'")
+          div.hint (Click on wish or press Enter to add it)
+          multiselect(
             v-model="param.value"
-            :placeholder="`Type person's ${param.label.toLowerCase()}`"
-          />
-        </div>
-      </div>
-    </form>
-    <pre>{{ JSON.stringify(params.values, null, 4) }}</pre>
-  </div>
+            :id="param.label"
+            :options="param.options"
+            mode="tags"
+            placeholder="Select or type your own wishes"
+            :searchable="true"
+            :createOption="true"
+          )
+        toggle(v-else-if="param.type === 'toggle'" v-model="param.value" :id="param.label" onLabel="yes" offLabel="no")
+        div.textarea-wrapper(v-else-if="param.type === 'textarea'")
+          textarea(
+            :id="param.label"
+            rows="10"
+            :placeholder="`Type your ${param.label.toLowerCase()} here`"
+            @input="limit_textarea_input($event, param)"
+            :value="param.value"
+          )
+          div.symbols-used {{ param.max_length - (param.value?.length ?? 0) }} symbols left
+        input(
+          v-else
+          :type="param.type"
+          :id="param.label"
+          v-model="param.value"
+          :placeholder="`Type person's ${param.label.toLowerCase()}`"
+        )
+
+  pre {{ JSON.stringify(params.values, null, 4) }}
+  p {{ params.prompt }}
 </template>
 
 <style src="@vuepic/vue-datepicker/dist/main.css"></style>

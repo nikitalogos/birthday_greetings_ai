@@ -61,7 +61,7 @@ export const params = reactive({
   target_language: {
     label: "Target language",
     type: "select",
-    value: 'English',
+    value: "English",
     options: ["English", "Russian"],
   },
 
@@ -215,16 +215,16 @@ params.prompt = computed(() => {
   }
 
   if (v.gender) {
-    prompt += `${v.name} identifies as ${v.gender}`
+    prompt += `${v.name} identifies as ${v.gender}`;
   }
   if (v.relationship) {
-    prompt += `I am ${v.name}'s ${v.relationship}.`
+    prompt += `I am ${v.name}'s ${v.relationship}.`;
   }
   if (v.profession) {
-    prompt += `${v.name} is a ${v.profession}.`
+    prompt += `${v.name} is a ${v.profession}.`;
   }
   if (v.hobby) {
-    prompt += `${v.name} enjoys ${v.hobby}.`
+    prompt += `${v.name} enjoys ${v.hobby}.`;
   }
   prompt += "\n";
 
@@ -260,4 +260,4 @@ params.prompt = computed(() => {
     prompt += `Additional context: ${v.comment}\n`;
   }
   return prompt;
-})
+});
