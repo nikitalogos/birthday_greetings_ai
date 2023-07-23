@@ -1,6 +1,5 @@
 import { reactive, computed } from "vue";
 
-import { api_token } from "./api_token";
 import { params } from "./params";
 
 function export_file(name, text) {
@@ -17,6 +16,8 @@ function export_file(name, text) {
 }
 
 export const chatbot = reactive({
+  token: null,
+
   chat_history: [
     {
       timestamp_ms: new Date().getTime(),
@@ -102,7 +103,7 @@ export const chatbot = reactive({
     const response = await fetch("http://localhost:8080/api/chatbot", {
       method: "POST",
       body: JSON.stringify({
-        token: api_token.token,
+        token: this.token,
         prompt,
       }),
     });

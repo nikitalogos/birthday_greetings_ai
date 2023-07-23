@@ -1,9 +1,9 @@
 <script>
-import GithubButton from 'vue-github-button'
+import GithubButton from "vue-github-button";
 
 export default defineNuxtComponent({
   components: {
-    GithubButton
+    GithubButton,
   },
 });
 </script>
