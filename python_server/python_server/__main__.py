@@ -81,7 +81,7 @@ class Server:
 def chatbot(r_json):
     os.environ["REPLICATE_API_TOKEN"] = r_json["token"]
 
-    user_prompt = r_json["user_prompt"]
+    user_prompt = r_json["prompt"]
     prompt = (
         "You are a helpful assistant. You do not respond as 'User' or pretend to be 'User'. "
         "You only respond once as 'Assistant'.\n\n"
@@ -123,7 +123,7 @@ if __name__ == "__main__":
                 Validator(
                     {
                         "token": {"type": "string", "required": True},
-                        "user_prompt": {"type": "string", "required": True},
+                        "prompt": {"type": "string", "required": True},
                     }
                 ),
             ],

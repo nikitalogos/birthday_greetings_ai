@@ -6,6 +6,7 @@ export default defineNuxtComponent({
 
       is_token_visible: false,
 
+      is_in_progress: false,
       is_error: false,
       result_str: "",
     };
@@ -14,17 +15,27 @@ export default defineNuxtComponent({
     async submit_token() {
       // check token
       try {
+        this.is_in_progress = true;
+        this.is_error = false;
+        this.result_str = "";
+
         await this.chatbot.run_impl("Say hello");
+
         this.is_error = false;
         this.result_str = "Token is valid!";
 
         setTimeout(() => {
-          this.$router.push("/form");
+          this.$router.push("/params");
         }, 1000);
       } catch (error) {
         this.is_error = true;
         this.result_str = error.message;
       }
+
+      this.is_in_progress = false;
+    },
+    go_to_replicate() {
+      window.open('https://replicate.com/account/api-tokens', '_blank', 'noopener')
     },
   },
 });
@@ -40,8 +51,7 @@ div.page-wrapper
   form
     div.param
       label(for="url") Get token
-      button.button.go-to-replicate
-        a(href="https://replicate.com/account/api-tokens" target="_blank" rel="noopener")
+      button.button.go-to-replicate(@click.prevent="go_to_replicate")
           | Go to Replicate.com
           i.external.alternate.icon(style="margin-left: 10px")
     div.param
@@ -51,10 +61,13 @@ div.page-wrapper
         i.white.eye.icon
       button.show-token(v-else v-tooltip aria-label="Show token" @click="is_token_visible = true")
         i.white.eye.slash.icon
-      button.button(:class="{ disabled: !chatbot.token }" type="submit" @click.prevent="submit_token")
+      button.button(:class="{ disabled: !chatbot.token || is_in_progress }" type="submit" @click.prevent="submit_token")
         | Next
         i.white.arrow.right.icon(style="margin-left: 5px")
 
+  div.loading(v-if="is_in_progress")
+    div.ui.active.inline.loader
+    div(style="color: var(--accent-color);") Your token is being checked, please wait...
   div.result(v-if="result_str" :class="{ error: is_error }") {{ result_str }}
 </template>
 
@@ -85,6 +98,16 @@ form {
   }
   button {
     width: 100px;
+  }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  div:not(:last-child) {
+    margin-bottom: 10px;
   }
 }
 </style>
