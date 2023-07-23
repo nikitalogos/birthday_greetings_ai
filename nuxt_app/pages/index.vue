@@ -1,15 +1,5 @@
 <script>
 export default defineNuxtComponent({
-  data() {
-    return {
-      chatbot,
-    };
-  },
-  methods: {
-    async chatbot_run() {
-      alert(await this.chatbot.run("Type first 5 primes"));
-    },
-  },
   created() {
     if (this.$route.path == "/") this.$router.push("/api_token");
   },
@@ -21,7 +11,6 @@ export default defineNuxtComponent({
     <header role="banner" class="sticky">
       <MenuHeader />
     </header>
-    <button @click="chatbot_run">chatbot</button>
     <main role="main">
       <NuxtPage />
     </main>

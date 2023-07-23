@@ -2,7 +2,7 @@
 export default defineNuxtComponent({
   head(nuxtApp) {
     return {
-      title: "Nikita Logos",
+      title: "Birthday Greetings AI",
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" }, // for mobile browsers
