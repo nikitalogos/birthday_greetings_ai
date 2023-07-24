@@ -18,19 +18,15 @@ form {
     width: 150px;
     font-weight: bold;
   }
-  .dynamic {
-    display: flex;
-    flex-direction: row;
-    .value {
-      width: 100px;
-    }
-    .toggle-container {
-      margin: 0 15px;
-    }
+  .group-label {
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 1.2em;
   }
+
   .multi-select-wrapper,
   input,
-  .dp__main {
+  .date-wrapper {
     width: calc(100% - 150px);
     min-width: 200px;
   }
@@ -69,6 +65,35 @@ form {
     border-radius: 4px;
     &:hover {
       border-color: var(--border-color-active);
+    }
+  }
+
+  .date-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    flex-wrap: wrap;
+
+    .dp__main {
+      width: 100%;
+    }
+    .computed {
+      margin: 10px 0;
+      color: var(--accent-color);
+      .hidden {
+        text-decoration: line-through;
+        color: var(--color-faded);
+      }
+    }
+  }
+  .toggle-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .hint {
+      margin-left: 10px;
     }
   }
 }

@@ -12,6 +12,16 @@ export const params = reactive({
     type: "date",
     value: null,
   },
+  hide_age: {
+    label: "Hide age",
+    type: "toggle",
+    value: false,
+  },
+  hide_zodiac_sign: {
+    label: "Hide zodiac sign",
+    type: "toggle",
+    value: true,
+  },
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~person details~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   gender: {
@@ -110,10 +120,12 @@ export const params = reactive({
   },
 });
 for (let key in params) {
-  params[key].name = key;
+  params[key].key = key;
 }
+params.hide_age.hint = computed(() => "(Age <b>" + (params.hide_age.value ? "won't" : "can") + "</b> be mentioned in greeting)");
+params.hide_zodiac_sign.hint = computed(() => "(Zodiac sign <b>" + (params.hide_zodiac_sign.value ? "won't" : "can") + "</b> be mentioned in greeting)");
 
-const age_value = computed(() => {
+params.age = computed(() => {
   const now = new Date();
   const date = params.date_of_birth.value;
   if (!date) return null;
@@ -123,12 +135,6 @@ const age_value = computed(() => {
   const age = now.getFullYear() - date.getFullYear() - (was_birthday_this_year ? 0 : 1);
   return age;
 });
-params.age = {
-  label: "Age",
-  type: "dynamic",
-  value: age_value,
-  show: true,
-};
 
 const ZODIAC_SIGNS = [
   { sign: ["Capricorn", "♑"], date: [1, 19] },
@@ -145,7 +151,7 @@ const ZODIAC_SIGNS = [
   { sign: ["Sagittarius", "♐"], date: [12, 21] },
   { sign: ["Capricorn", "♑"], date: [12, 31] }, // to handle the case of dates after Dec 21
 ];
-const zodiac_value = computed(() => {
+params.zodiac_sign = computed(() => {
   const date = params.date_of_birth.value;
   if (!date) return null;
 
@@ -159,37 +165,29 @@ const zodiac_value = computed(() => {
   }
   throw new Error("Date is invalid. That's weird. Shouldn't get here");
 });
-params.zodiac = {
-  label: "Zodiac sign",
-  type: "dynamic",
-  value: zodiac_value,
-  show: false,
-};
 
 params.groups = computed(() => {
   const p = params;
   return [
-    { name: "essentials", label: "Essentials", items: [p.name, p.date_of_birth] },
-    { name: "dynamic", label: "Dynamic", items: [p.age, p.zodiac] },
+    { items: [p.name] },
+    { items: [p.date_of_birth, p.hide_age, p.hide_zodiac_sign] },
+    { items: [p.what_to_wish, p.target_language] },
     {
-      name: "person_details",
-      label: "Person details",
+      label: "Personal details:",
       items: [p.gender, p.relationship, p.profession, p.hobby],
     },
-    { name: "content", label: "Content", items: [p.what_to_wish, p.target_language] },
     {
-      name: "styling",
-      label: "Styling",
+      label: "Styling:",
       items: [p.use_emojis, p.greeting_length, p.greeting_style, p.theme, p.use_quotation, p.use_affirmation],
     },
-    { name: "comment", label: "Comment", items: [p.comment] },
+    { items: [p.comment] },
   ];
 });
 params.values = computed(() => {
   const dict = {};
   params.groups.forEach((group) => {
     group.items.forEach((item) => {
-      dict[item.name] = item.value;
+      dict[item.key] = item.value;
     });
   });
   return dict;
@@ -202,13 +200,13 @@ params.prompt = computed(() => {
   if (v.date_of_birth) {
     prompt += `${v.name} was born on ${v.date_of_birth}.\n`;
 
-    prompt += `Their age is ${v.age}.\n`;
-    if (!params.age.show) {
+    prompt += `Their age is ${params.age}.\n`;
+    if (v.hide_age.value) {
       prompt += `Please do not mention ${v.name}'s age in the greeting.\n`;
     }
 
-    prompt += `Their zodiac sign is ${v.zodiac}.\n`;
-    if (!params.zodiac.show) {
+    prompt += `Their zodiac sign is ${params.zodiac_sign}.\n`;
+    if (v.hide_zodiac_sign.value) {
       prompt += `Please do not mention ${v.name}'s zodiac sign in the greeting.\n`;
     }
     prompt += "\n";

@@ -40,28 +40,29 @@ export default defineNuxtComponent({
 div.page-wrapper
   h1 Params
   form
-    div(v-for="(group, idx) in params.groups" :key="idx")
-      h2 {{ group.label }}
+    div.group(v-for="(group, idx) in params.groups" :key="idx")
+      div.sep-line(v-if="idx > 0")
+      div.group-label(v-if="!!group.label") {{ group.label }}
       div.param(v-for="param in group.items")
-        label(v-if="group.label !== 'Comment'" :for="param.label") {{ param.label }}
+        label {{ param.label }}
 
         //- can't use :flow="['year', 'month', 'calendar']" because of a bug. But maybe it will be fixed soon... todo: watch this
-        VueDatePicker(
-          v-if="param.type === 'date'"
-          v-model="param.value"
-          :id="param.label"
-          auto-apply
-          :enable-time-picker="false"
-          :format="date_format"
-          dark
-          text-input
-          :text-input-options="{ format: 'yyyy-MM-dd' }"
-          placeholder="Select date or type it in format YYYY-MM-DD"
-        )
-        span.dynamic(v-else-if="param.type === 'dynamic'")
-          div.value {{ param.value ?? "?" }} {{ param.label === "Age" ? "years" : "" }}
-          toggle(v-model="param.show" :id="param.label" onLabel="enabled" offLabel="hidden")
-          div.hint {{ param.show ? "(press to hide)" : "(press to enable)" }}
+        div.date-wrapper(v-if="param.type === 'date'")
+          VueDatePicker.date(
+            v-model="param.value"
+            :id="param.label"
+            auto-apply
+            :enable-time-picker="false"
+            :format="date_format"
+            dark
+            text-input
+            :text-input-options="{ format: 'yyyy-MM-dd' }"
+            placeholder="Select date or type it in format YYYY-MM-DD"
+          )
+          span.computed(v-if="!!params.date_of_birth.value")
+            span(:class="{hidden: params.hide_age.value}") {{ params.age }} years old,
+            |  
+            span(:class="{hidden: params.hide_zodiac_sign.value}") {{ params.zodiac_sign }}
         div.multi-select-wrapper(v-else-if="param.type === 'select'")
           multiselect(
             v-model="param.value"
@@ -82,7 +83,9 @@ div.page-wrapper
             :searchable="true"
             :createOption="true"
           )
-        toggle(v-else-if="param.type === 'toggle'" v-model="param.value" :id="param.label" onLabel="yes" offLabel="no")
+        span.toggle-wrapper(v-else-if="param.type === 'toggle'")
+          toggle(v-model="param.value" :id="param.label" onLabel="yes" offLabel="no")
+          div.hint(v-if="!!param.hint" v-html="param.hint")
         div.textarea-wrapper(v-else-if="param.type === 'textarea'")
           textarea(
             :id="param.label"
@@ -115,8 +118,6 @@ div.page-wrapper
 <style lang="scss" src="@/assets/style/vue-datepicker.scss"></style>
 <style lang="scss" src="@/assets/style/vueform-multiselect.scss"></style>
 <style lang="scss" src="@/assets/style/vueform-toggle.scss"></style>
-
-<style lang="scss" src="@/assets/style/form.scss"></style>
 
 <style scoped lang="scss">
 .cover-wrapper {

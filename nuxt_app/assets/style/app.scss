@@ -127,6 +127,16 @@ button {
   padding: 0 20px;
 }
 
+.sep-line {
+  width: 100%;
+  height: 1px;
+
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  background-image: linear-gradient(90deg, rgba(255,255,255, 0) 0%, rgba(255,255,255, 0.5) 50%, rgba(255,255,255, 0) 100%);
+}
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~fonts~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // how to specify font: https://stackoverflow.com/questions/11737168/how-to-import-fonts-in-css
 @font-face {
