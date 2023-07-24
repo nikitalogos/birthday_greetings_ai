@@ -8,25 +8,17 @@ export default defineNuxtComponent({
 });
 </script>
 
-<template>
-  <div class="menu-container">
-    <div class="menu-wrapper">
-      <div class="title">{{ menu.title }}</div>
-      <div class="menu">
-        <nuxt-link
-          v-for="(item, idx) in menu.items"
-          :key="idx"
-          :to="item.path"
-          class="item link"
-          :class="{
-            active: $route.path.includes(item.path),
-          }"
-        >
-          {{ item.title }}
-        </nuxt-link>
-      </div>
-    </div>
-  </div>
+<template lang="pug">
+div.menu-container
+  div.menu-wrapper
+    div.title {{ menu.title }}
+    div.menu
+      nuxt-link.item.link(
+        v-for="(item, idx) in menu.items"
+        :key="idx"
+        :to="item.path"
+        :class="{active: $route.path.includes(item.path)}"
+      ) {{ item.title }}
 </template>
 
 <style lang="scss" scoped>
