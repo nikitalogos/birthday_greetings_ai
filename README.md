@@ -1,3 +1,5 @@
+![Copter with a present](docs/copter_leonardo.jpg)
+
 # Birthday Greetings AI
 
 Create outstanding birthday greetings for your loved ones, friends and colleagues! 
