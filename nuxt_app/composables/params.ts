@@ -122,8 +122,12 @@ export const params = reactive({
 for (let key in params) {
   params[key].key = key;
 }
-params.hide_age.hint = computed(() => "(Age <b>" + (params.hide_age.value ? "won't" : "can") + "</b> be mentioned in greeting)");
-params.hide_zodiac_sign.hint = computed(() => "(Zodiac sign <b>" + (params.hide_zodiac_sign.value ? "won't" : "can") + "</b> be mentioned in greeting)");
+params.hide_age.hint = computed(
+  () => "(Age <b>" + (params.hide_age.value ? "won't" : "can") + "</b> be mentioned in greeting)",
+);
+params.hide_zodiac_sign.hint = computed(
+  () => "(Zodiac sign <b>" + (params.hide_zodiac_sign.value ? "won't" : "can") + "</b> be mentioned in greeting)",
+);
 
 params.age = computed(() => {
   const now = new Date();
