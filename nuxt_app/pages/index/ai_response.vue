@@ -45,14 +45,15 @@ export default defineNuxtComponent({
 <template lang="pug">
 div.page-wrapper
   div.cover-wrapper
+    h1(style="white-space: nowrap;") AI Response
     div(style="flex: 1")
     img(src="images/boy.png" alt="A boy with a present")
 
-  h1 AI Response
   p To clear history, refresh the page
   p You can download conversation:
-    button.button(@click="chatbot.export_txt") as .txt
-    button.button(@click="chatbot.export_json") as .json
+    span(style="white-space: nowrap;")
+      button.button(@click="chatbot.export_txt") as .txt
+      button.button(@click="chatbot.export_json") as .json
 
   div.messages-wrapper
     div.messages
@@ -101,14 +102,18 @@ div.page-wrapper
 .cover-wrapper {
   display: flex;
   flex-direction: row;
+  align-items: flex-end;
 
   img {
     margin-top: 50px;
-    width: 35%;
+    margin-right: 14px;
+    margin-bottom: -120px;
+    width: 150px;
     display: block;
+
+    z-index: -1;
   }
 }
-
 
 .messages-wrapper {
   width: 100%;
@@ -146,7 +151,7 @@ div.page-wrapper
 
   height: 100%;
   padding: 10px;
-  box-sizing: padding-box;
+  box-sizing: border-box;
 
   overflow-y: scroll;
 

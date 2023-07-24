@@ -38,11 +38,6 @@ export default defineNuxtComponent({
 
 <template lang="pug">
 div.page-wrapper
-  div.cover-wrapper
-    img(src="images/man.png" alt="A man with a present")
-    div(style="flex: 1")
-    img(src="images/girl.png" alt="A teenager girl with a present")
-
   h1 Params
   form
     div(v-for="(group, idx) in params.groups" :key="idx")
@@ -107,6 +102,10 @@ div.page-wrapper
 
   pre {{ JSON.stringify(params.values, null, 4) }}
   p(style="white-space: pre-line;") {{ params.prompt }}
+
+  div.cover-wrapper
+    div(style="flex: 1")
+    img.girl(src="images/girl.png" alt="A teenager girl with a present")
 </template>
 
 <style src="@vuepic/vue-datepicker/dist/main.css"></style>
@@ -126,7 +125,7 @@ div.page-wrapper
 
   img {
     margin-top: 50px;
-    width: 35%;
+    width: 210px;
     display: block;
   }
 }

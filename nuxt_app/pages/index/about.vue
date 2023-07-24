@@ -40,6 +40,9 @@ div.page-wrapper
         aria-label="Star nikitalogos/birthday_greetings_ai on GitHub"
       ) Star
 
+  div.cover-wrapper
+    img(src="images/old_lady.png" alt="Robot gives a present to an old lady")
+
 </template>
 
 <style scoped lang="scss">
@@ -53,6 +56,17 @@ h3 {
   }
   .gh {
     vertical-align: middle;
+  }
+}
+
+.cover-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 65%;
+    display: block;
   }
 }
 </style>
