@@ -25,7 +25,7 @@ export default defineNuxtComponent({
 </template>
 
 <style lang="scss" src="assets/style/app.scss"></style>
-<style lang="scss" src="@/assets/style/params.scss"></style>
+<style lang="scss" src="@/assets/style/forms.scss"></style>
 <style lang="scss" src="assets/style/tooltip.scss"></style>
 
 <style src="@/assets/fonts/semantic-ui-icon/icon.css"></style>

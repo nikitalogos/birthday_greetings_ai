@@ -173,18 +173,20 @@ params.zodiac_sign = computed(() => {
 params.groups = computed(() => {
   const p = params;
   return [
-    { items: [p.name] },
-    { items: [p.date_of_birth, p.hide_age, p.hide_zodiac_sign] },
-    { items: [p.what_to_wish, p.target_language] },
+    { items: [p.name], advanced: false },
+    { items: [p.date_of_birth, p.hide_age, p.hide_zodiac_sign], advanced: false },
+    { items: [p.what_to_wish, p.target_language], advanced: false },
     {
       label: "Personal details:",
       items: [p.gender, p.relationship, p.profession, p.hobby],
+      advanced: true,
     },
     {
       label: "Styling:",
       items: [p.use_emojis, p.greeting_length, p.greeting_style, p.theme, p.use_quotation, p.use_affirmation],
+      advanced: true,
     },
-    { items: [p.comment] },
+    { items: [p.comment], advanced: true },
   ];
 });
 params.values = computed(() => {

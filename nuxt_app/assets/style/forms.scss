@@ -17,6 +17,10 @@ form {
     line-height: 2rem;
     width: 150px;
     font-weight: bold;
+
+    &.accent {
+      color: var(--accent-color);
+    }
   }
   .group-label {
     color: var(--accent-color);
@@ -91,6 +95,7 @@ form {
     display: flex;
     flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
 
     .hint {
       margin-left: 10px;

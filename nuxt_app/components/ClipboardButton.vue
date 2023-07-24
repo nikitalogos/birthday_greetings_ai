@@ -9,6 +9,10 @@ export default defineNuxtComponent({
       type: String,
       required: true,
     },
+    accent: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     copy_to_clipboard(event) {
@@ -26,7 +30,7 @@ export default defineNuxtComponent({
 
 <template lang="pug">
 button(@click="copy_to_clipboard($event)" v-tooltip :aria-label="`Copy ${name} to clipboard`")
-  i.clipboard.icon
+  i.clipboard.icon(:class="{accent: accent}")
   span.copied Copied!
 </template>
 
@@ -53,6 +57,10 @@ button {
     &.show {
       visibility: visible;
     }
+  }
+
+  i.clipboard.icon.accent {
+    color: var(--accent-color);
   }
 }
 </style>
