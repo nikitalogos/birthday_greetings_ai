@@ -38,6 +38,11 @@ export default defineNuxtComponent({
 
 <template lang="pug">
 div.page-wrapper
+  div.cover-wrapper
+    img(src="images/man.png" alt="A man with a present")
+    div(style="flex: 1")
+    img(src="images/girl.png" alt="A teenager girl with a present")
+
   h1 Params
   form
     div(v-for="(group, idx) in params.groups" :key="idx")
@@ -114,4 +119,15 @@ div.page-wrapper
 
 <style lang="scss" src="@/assets/style/form.scss"></style>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.cover-wrapper {
+  display: flex;
+  flex-direction: row;
+
+  img {
+    margin-top: 50px;
+    width: 35%;
+    display: block;
+  }
+}
+</style>

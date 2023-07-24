@@ -44,7 +44,7 @@ export default defineNuxtComponent({
 <template lang="pug">
 div.page-wrapper
   div.cover-wrapper
-    img(src="images/copter.png" alt="Cover")
+    img(src="images/copter.png" alt="Copter delivers a present")
   h1 Get API Token
   div.motivation
     | It's free and will take 5 sec!

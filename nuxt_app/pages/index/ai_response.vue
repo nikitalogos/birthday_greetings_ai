@@ -44,6 +44,10 @@ export default defineNuxtComponent({
 
 <template lang="pug">
 div.page-wrapper
+  div.cover-wrapper
+    div(style="flex: 1")
+    img(src="images/boy.png" alt="A boy with a present")
+
   h1 AI Response
   p To clear history, refresh the page
   p You can download conversation:
@@ -89,9 +93,23 @@ div.page-wrapper
     button.button(@click="$router.push('/params')")
       i.edit.outline.icon
       | Edit params
+
+  div(style="height: 100px")
 </template>
 
 <style scoped lang="scss">
+.cover-wrapper {
+  display: flex;
+  flex-direction: row;
+
+  img {
+    margin-top: 50px;
+    width: 35%;
+    display: block;
+  }
+}
+
+
 .messages-wrapper {
   width: 100%;
   height: 500px;
