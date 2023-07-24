@@ -169,6 +169,8 @@ div.page-wrapper
       flex-direction: column;
       align-items: center;
 
+      color: var(--accent-color);
+
       div:not(:last-child) {
         margin-bottom: 10px;
       }

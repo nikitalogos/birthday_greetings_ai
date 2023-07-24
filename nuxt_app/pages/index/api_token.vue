@@ -56,7 +56,7 @@ div.page-wrapper
           i.external.alternate.icon(style="margin-left: 10px")
     div.param
       label(for="token") Token
-      input(:type="is_token_visible ? 'text' : 'password'" id="token" v-model="chatbot.token")
+      input(:type="is_token_visible ? 'text' : 'password'" id="token" v-model="chatbot.token" placeholder="Paste token here")
       button.show-token(v-if="is_token_visible" v-tooltip aria-label="Hide token" @click="is_token_visible = false")
         i.white.eye.icon
       button.show-token(v-else v-tooltip aria-label="Show token" @click="is_token_visible = true")

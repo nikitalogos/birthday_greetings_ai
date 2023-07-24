@@ -11,7 +11,7 @@ export default defineNuxtComponent({
 <template lang="pug">
 div.page-wrapper
   h1 About #[i.birthday.cake.icon]
-  p Made by #[a(href="https://logosnikita.com/about" target="_blank" rel="noopener") Nikita Logos]
+  p #[i.user.circle.icon] Made by: #[a(href="https://logosnikita.com/about" target="_blank" rel="noopener") Nikita Logos]
   p #[i.linkify.icon] Website: #[a(href="https://logosnikita.com/" target="_blank" rel="noopener") logosnikita.com]
   p #[i.github.icon] Github: #[a(href="https://github.com/nikitalogos/birthday_greetings_ai" target="_blank" rel="noopener") birthday_greetings_ai]
 
@@ -30,15 +30,14 @@ div.page-wrapper
 
 
   h3 Support me:
-  ul
-    li.align-github-star
-      span If you like this project, leave star on GitHub:
-      github-button.gh(
-        href="https://github.com/nikitalogos/birthday_greetings_ai"
-        data-color-scheme="no-preference: dark; light: dark; dark: dark;"
-        data-show-count="true"
-        aria-label="Star nikitalogos/birthday_greetings_ai on GitHub"
-      ) Star
+  p.github-star
+    span If you like this project, leave star on GitHub:
+    github-button.gh(
+      href="https://github.com/nikitalogos/birthday_greetings_ai"
+      data-color-scheme="no-preference: dark; light: dark; dark: dark;"
+      data-show-count="true"
+      aria-label="Star nikitalogos/birthday_greetings_ai on GitHub"
+    ) Star
 
   div.cover-wrapper
     img(src="images/old_lady.png" alt="Robot gives a present to an old lady")
@@ -50,7 +49,7 @@ h3 {
   margin-top: 50px;
 }
 
-.align-github-star {
+.github-star {
   span {
     margin-right: 5px;
   }

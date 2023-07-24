@@ -1,0 +1,6 @@
+.ui.active.inline.loader:before {
+  border-color: var(--accent-color-transparent);
+}
+.ui.active.inline.loader:after {
+  border-color: var(--accent-color) transparent transparent;
+}

@@ -29,5 +29,6 @@ export default defineNuxtComponent({
 
 <style src="@/assets/fonts/semantic-ui-icon/icon.css"></style>
 <style src="public/semantic-ui/components/loader.min.css"></style>
+<style lang="scss" src="assets/style/semantic-ui-overrides.scss"></style>
 
 <style lang="scss" scoped></style>
