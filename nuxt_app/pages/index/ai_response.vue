@@ -18,15 +18,6 @@ export default defineNuxtComponent({
 
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     },
-    copy_to_clipboard(event, text) {
-      navigator.clipboard.writeText(text);
-
-      const label_el = event.currentTarget.querySelector(".copied");
-      label_el.classList.add("show");
-      setTimeout(() => {
-        label_el.classList.remove("show");
-      }, 1000);
-    },
     scroll_to_bottom() {
       const messages = this.$el.querySelector(".messages");
       messages.scrollTop = messages.scrollHeight;
@@ -66,9 +57,7 @@ div.page-wrapper
             b You:
             span
               | {{ message.is_prompt_visible ? message.prompt : "..." }}
-            button(v-if="message.is_prompt_visible" @click="copy_to_clipboard($event, message.prompt)" v-tooltip aria-label="Copy prompt to clipboard")
-              i.clipboard.icon
-              span.copied Copied!
+            ClipboardButton(v-if="message.is_prompt_visible" name="prompt" :text="message.prompt")
             button(v-if="message.is_prompt_visible" @click="message.is_prompt_visible = false" v-tooltip aria-label="Hide prompt")
               i.eye.icon
             button(v-else @click="message.is_prompt_visible = true" v-tooltip aria-label="Show prompt")
@@ -76,9 +65,7 @@ div.page-wrapper
           div.response.phrase(:class="{error: message.is_error}")
             b AI:
             span {{ chatbot.response_or_error(message) }}
-            button(@click="copy_to_clipboard($event, chatbot.response_or_error(message))" v-tooltip aria-label="Copy response to clipboard")
-              i.clipboard.icon
-              span.copied Copied!
+            ClipboardButton(name="response" :text="chatbot.response_or_error(message)")
           div.time
             i.time.icon
             | {{ format_date(message.timestamp_ms) }}
@@ -196,29 +183,6 @@ div.page-wrapper
         color: var(--color-faded);
         :hover {
           color: var(--color);
-        }
-
-        position: relative;
-        span.copied {
-          position: absolute;
-          z-index: 1;
-
-          right: 100%;
-          margin-right: 5px;
-          padding: 5px 10px;
-          top: 50%;
-          margin-top: -50%;
-
-          border: 1px solid;
-          border-radius: 4px;
-
-          color: var(--accent-color);
-          background-color: rgba(0, 0, 0, 0.8);
-
-          visibility: hidden;
-          &.show {
-            visibility: visible;
-          }
         }
       }
 
