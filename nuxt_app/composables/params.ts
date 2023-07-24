@@ -1,5 +1,7 @@
 import { reactive, computed } from "vue";
 
+import { format_date } from "./utils";
+
 export const params = reactive({
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~essentials~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   name: {
@@ -204,31 +206,31 @@ params.prompt = computed(() => {
 
   let prompt = `I want to congratulate ${v.name} on their birthday. Please create a birthday greeting.\n`;
   if (v.date_of_birth) {
-    prompt += `${v.name} was born on ${v.date_of_birth}.\n`;
+    prompt += `${v.name} was born on ${format_date(v.date_of_birth)}.\n`;
 
     prompt += `Their age is ${params.age}.\n`;
-    if (v.hide_age.value) {
+    if (v.hide_age) {
       prompt += `Please do not mention ${v.name}'s age in the greeting.\n`;
     }
 
     prompt += `Their zodiac sign is ${params.zodiac_sign}.\n`;
-    if (v.hide_zodiac_sign.value) {
+    if (v.hide_zodiac_sign) {
       prompt += `Please do not mention ${v.name}'s zodiac sign in the greeting.\n`;
     }
     prompt += "\n";
   }
 
   if (v.gender) {
-    prompt += `${v.name} identifies as ${v.gender}`;
+    prompt += `${v.name} identifies as ${v.gender}.\n`;
   }
   if (v.relationship) {
-    prompt += `I am ${v.name}'s ${v.relationship}.`;
+    prompt += `I am ${v.name}'s ${v.relationship}.\n`;
   }
   if (v.profession) {
-    prompt += `${v.name} is a ${v.profession}.`;
+    prompt += `${v.name} is a ${v.profession}.\n`;
   }
   if (v.hobby) {
-    prompt += `${v.name} enjoys ${v.hobby}.`;
+    prompt += `${v.name} enjoys ${v.hobby}.\n`;
   }
   prompt += "\n";
 

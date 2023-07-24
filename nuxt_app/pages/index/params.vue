@@ -119,6 +119,8 @@ div.page-wrapper
       ClipboardButton(name="prompt" :text="params.prompt" accent style="margin-left: 10px")
     div.text "{{ params.prompt }}"
 
+  //pre {{ params.values }}
+
   div.cover-wrapper
     div(style="flex: 1")
     img.girl(src="images/girl.png" alt="A teenager girl with a present")

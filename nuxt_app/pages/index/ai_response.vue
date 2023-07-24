@@ -3,21 +3,10 @@ export default defineNuxtComponent({
   data() {
     return {
       chatbot,
+      format_datetime,
     };
   },
   methods: {
-    format_date(timestamp_ms) {
-      const date = new Date(timestamp_ms);
-
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const day = String(date.getDate()).padStart(2, "0");
-      const hours = String(date.getHours()).padStart(2, "0");
-      const minutes = String(date.getMinutes()).padStart(2, "0");
-      const seconds = String(date.getSeconds()).padStart(2, "0");
-
-      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    },
     scroll_to_bottom() {
       const messages = this.$el.querySelector(".messages");
       messages.scrollTop = messages.scrollHeight;
@@ -68,7 +57,7 @@ div.page-wrapper
             ClipboardButton(name="response" :text="chatbot.response_or_error(message)")
           div.time
             i.time.icon
-            | {{ format_date(message.timestamp_ms) }}
+            | {{ format_datetime(message.timestamp_ms) }}
             i.hourglass.end.icon(style="margin-left: 10px")
             | {{ (message.duration_ms / 1000).toFixed(2) }}s
     div.shadow.top
