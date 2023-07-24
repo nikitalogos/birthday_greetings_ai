@@ -63,9 +63,9 @@ div.page-wrapper
               placeholder="Select date or type it in format YYYY-MM-DD"
             )
             span.computed(v-if="!!params.date_of_birth.value")
-              span(:class="{hidden: params.hide_age.value}") {{ params.age }} years old,
+              span(:class="{hidden: !params.use_age.value}") {{ params.age }} years old,
               |  
-              span(:class="{hidden: params.hide_zodiac_sign.value}") {{ params.zodiac_sign }}
+              span(:class="{hidden: !params.use_zodiac_sign.value}") {{ params.zodiac_sign }}
           div.multi-select-wrapper(v-else-if="param.type === 'select'")
             multiselect(
               v-model="param.value"

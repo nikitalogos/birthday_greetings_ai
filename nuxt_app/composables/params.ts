@@ -14,15 +14,15 @@ export const params = reactive({
     type: "date",
     value: null,
   },
-  hide_age: {
-    label: "Hide age",
-    type: "toggle",
-    value: false,
-  },
-  hide_zodiac_sign: {
-    label: "Hide zodiac sign",
+  use_age: {
+    label: "Use age",
     type: "toggle",
     value: true,
+  },
+  use_zodiac_sign: {
+    label: "Use zodiac sign",
+    type: "toggle",
+    value: false,
   },
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~person details~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -81,14 +81,14 @@ export const params = reactive({
   use_emojis: {
     label: "Use emojis",
     type: "select",
-    value: "few",
+    value: null,
     options: ["no", "few", "more", "lots of"],
   },
   greeting_length: {
     label: "Greeting length",
     type: "select",
-    value: "medium",
-    options: ["short", "medium", "long"],
+    value: null,
+    options: ["short (<50 words)", "medium (~100 words)", "long (>150 words)"],
   },
   greeting_style: {
     label: "Greeting style",
@@ -124,11 +124,11 @@ export const params = reactive({
 for (let key in params) {
   params[key].key = key;
 }
-params.hide_age.hint = computed(
-  () => "(Age <b>" + (params.hide_age.value ? "won't" : "can") + "</b> be mentioned in greeting)",
+params.use_age.hint = computed(
+  () => "(Age <b>" + (params.use_age.value ? "will" : "won't") + "</b> be mentioned in greeting)",
 );
-params.hide_zodiac_sign.hint = computed(
-  () => "(Zodiac sign <b>" + (params.hide_zodiac_sign.value ? "won't" : "can") + "</b> be mentioned in greeting)",
+params.use_zodiac_sign.hint = computed(
+  () => "(Zodiac sign <b>" + (params.use_zodiac_sign.value ? "will" : "won't") + "</b> be mentioned in greeting)",
 );
 
 params.age = computed(() => {
@@ -176,7 +176,7 @@ params.groups = computed(() => {
   const p = params;
   return [
     { items: [p.name], advanced: false },
-    { items: [p.date_of_birth, p.hide_age, p.hide_zodiac_sign], advanced: false },
+    { items: [p.date_of_birth, p.use_age, p.use_zodiac_sign], advanced: false },
     { items: [p.what_to_wish, p.target_language], advanced: false },
     {
       label: "Personal details:",
@@ -208,13 +208,15 @@ params.prompt = computed(() => {
   if (v.date_of_birth) {
     prompt += `${v.name} was born on ${format_date(v.date_of_birth)}.\n`;
 
-    prompt += `Their age is ${params.age}.\n`;
-    if (v.hide_age) {
+    if (v.use_age) {
+      prompt += `Their age is ${params.age}.\n`;
+    } else {
       prompt += `Please do not mention ${v.name}'s age in the greeting.\n`;
     }
 
-    prompt += `Their zodiac sign is ${params.zodiac_sign}.\n`;
-    if (v.hide_zodiac_sign) {
+    if (v.use_zodiac_sign) {
+      prompt += `Their zodiac sign is ${params.zodiac_sign}.\n`;
+    } else {
       prompt += `Please do not mention ${v.name}'s zodiac sign in the greeting.\n`;
     }
     prompt += "\n";
@@ -243,10 +245,10 @@ params.prompt = computed(() => {
   prompt += `The birthday greeting should be in ${v.target_language} language.\n`;
   prompt += "\n";
 
-  if (v.use_emojis !== "no") {
+  if (v.use_emojis) {
     prompt += `Please include ${v.use_emojis} emojis in the greeting.\n`;
   }
-  if (v.greeting_length !== "medium") {
+  if (v.greeting_length) {
     prompt += `The greeting should be ${v.greeting_length}.\n`;
   }
   if (v.greeting_style) {
