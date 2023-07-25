@@ -50,7 +50,6 @@ export const params = reactive({
       "mentor",
       "boss",
       "acquaintance",
-      "your variant",
     ],
   },
   profession: {
