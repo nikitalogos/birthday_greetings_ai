@@ -8,6 +8,7 @@ export const params = reactive({
     label: "Name",
     type: "text",
     value: null,
+    required: true,
   },
   date_of_birth: {
     label: "Date of Birth",
@@ -90,6 +91,7 @@ export const params = reactive({
     label: "Target language",
     type: "select",
     value: "English",
+    required: true,
     options: [
       "Arabic",
       "Chinese",
@@ -273,6 +275,13 @@ params.values = computed(() => {
     });
   });
   return dict;
+});
+
+params.is_valid = computed(() => {
+  return Object.values(params).every((item) => {
+    if (!item || typeof item !== "object" || Array.isArray(item)) return true;
+    return !item.required || item.value;
+  });
 });
 
 params.prompt = computed(() => {

@@ -47,7 +47,7 @@ div.page-wrapper
         div.sep-line(v-if="idx > 0")
         div.group-label(v-if="!!group.label") {{ group.label }}
         div.param(v-for="param in group.items")
-          label {{ param.label }}
+          label {{ param.label + (param.required ? '*' : '') }}
 
           //- can't use :flow="['year', 'month', 'calendar']" because of a bug. But maybe it will be fixed soon... todo: watch this
           div.date-wrapper(v-if="param.type === 'date'")
@@ -121,9 +121,14 @@ div.page-wrapper
 
   //pre {{ params.values }}
 
+  div.sep-line
+  button.button.create(:class="{disabled: !params.is_valid}")
+    | Create greeting!
+    i.magic.icon(style="margin-left: 5px")
+
   div.cover-wrapper
     div(style="flex: 1")
-    img.girl(src="images/girl.png" alt="A teenager girl with a present")
+    img(src="images/girl.png" alt="A teenager girl with a present")
 </template>
 
 <style src="@vuepic/vue-datepicker/dist/main.css"></style>
@@ -135,17 +140,6 @@ div.page-wrapper
 <style lang="scss" src="@/assets/style/vueform-toggle.scss"></style>
 
 <style scoped lang="scss">
-.cover-wrapper {
-  display: flex;
-  flex-direction: row;
-
-  img {
-    margin-top: 50px;
-    width: 210px;
-    display: block;
-  }
-}
-
 .prompt-wrapper {
   color: var(--accent-color);
 
@@ -159,6 +153,22 @@ div.page-wrapper
     margin: 10px;
     padding-left: 20px;
     border-left: 3px solid var(--accent-color);
+  }
+}
+
+button.button.create {
+  font-size: 1.2rem;
+  margin-left: 0;
+}
+
+.cover-wrapper {
+  display: flex;
+  flex-direction: row;
+
+  img {
+    margin-top: -60px;
+    width: 210px;
+    display: block;
   }
 }
 </style>
