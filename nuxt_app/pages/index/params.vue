@@ -74,6 +74,8 @@ div.page-wrapper
               placeholder="Select option or type your own variant"
               :searchable="true"
               :createOption="true"
+              :canClear="!param.required"
+              :canDeselect="!param.required"
             )
           div.multi-select-wrapper(v-else-if="param.type === 'multiselect'")
             div.hint (Click on wish or press Enter to add it)
@@ -103,7 +105,8 @@ div.page-wrapper
             :type="param.type"
             :id="param.label"
             v-model="param.value"
-            :placeholder="`Type person's ${param.label.toLowerCase()}`"
+            :placeholder="`Type person's ${param.label.toLowerCase()}` + (param.required ? `. ${param.label} is required` : '')"
+            :class="{required: param.required}"
           )
 
     div.param

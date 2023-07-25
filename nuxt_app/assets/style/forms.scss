@@ -71,6 +71,9 @@ form {
       border-color: var(--border-color-active);
     }
   }
+  input.required {
+    border-color: var(--accent-color);
+  }
 
   .date-wrapper {
     display: flex;
