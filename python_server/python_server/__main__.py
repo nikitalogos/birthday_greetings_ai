@@ -12,8 +12,9 @@ from cerberus import Validator
 
 
 class Server:
-    def __init__(self, routes_post: dict, port: int, allowed_client_hosts: List[str]):
+    def __init__(self, routes_post: dict, host: str, port: int, allowed_client_hosts: List[str]):
         self.routes_post = {k: self._make_async_route(*v) for k, v in routes_post.items()}
+        self.host = host
         self.port = int(port)
         self.allowed_client_hosts = allowed_client_hosts
 
@@ -73,6 +74,7 @@ class Server:
         app = self._create_app()
         web.run_app(
             app,
+            host=self.host,
             port=self.port,
             access_log=None,  # disable logs
         )
@@ -108,6 +110,7 @@ def chatbot(r_json):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("--host", type=str, default="0.0.0.0")
     parser.add_argument("--port", type=int, default=8080)
     parser.add_argument("--dev", action="store_true")
     args = parser.parse_args()
@@ -128,6 +131,7 @@ if __name__ == "__main__":
                 ),
             ],
         },
+        host=args.host,
         port=args.port,
         allowed_client_hosts=allowed_client_hosts,
     )

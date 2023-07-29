@@ -15,6 +15,11 @@ function export_file(name, text) {
   document.body.removeChild(element);
 }
 
+const is_production = process.env.NODE_ENV === "production";
+const backend_url = is_production
+  ? "https://birthday-greetings-ai.fly.dev"
+  : "http://" + window.location.hostname + ":8080";
+
 export const chatbot = reactive({
   token: null,
   is_in_progress: false,
@@ -103,7 +108,7 @@ export const chatbot = reactive({
   async run_impl(prompt) {
     this.is_in_progress = true;
     try {
-      const response = await fetch("http://localhost:8080/api/chatbot", {
+      const response = await fetch(backend_url + "/api/chatbot", {
         method: "POST",
         body: JSON.stringify({
           token: this.token,
