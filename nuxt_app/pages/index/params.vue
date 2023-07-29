@@ -80,7 +80,6 @@ div.page-wrapper
               :canDeselect="!param.required"
             )
           div.multi-select-wrapper(v-else-if="param.type === 'multiselect'")
-            div.hint (Click on wish or press Enter to add it)
             multiselect(
               v-model="param.value"
               :id="param.label"
@@ -90,8 +89,10 @@ div.page-wrapper
               :searchable="true"
               :createOption="true"
             )
+            div.hint (Click on wish or press Enter to add it)
           span.toggle-wrapper(v-else-if="param.type === 'toggle'")
-            toggle(v-model="param.value" :id="param.label" onLabel="yes" offLabel="no")
+            span.toggle-wrapper-inner
+              toggle(v-model="param.value" :id="param.label" onLabel="yes" offLabel="no")
             div.hint(v-if="!!param.hint" v-html="param.hint")
           div.textarea-wrapper(v-else-if="param.type === 'textarea'")
             textarea(
@@ -115,7 +116,8 @@ div.page-wrapper
       div.sep-line
       label.accent(for="advanced_mode_toggle") Advanced mode
       span.toggle-wrapper
-        toggle(v-model="is_advanced_mode" id="advanced_mode_toggle" onLabel="on" offLabel="off")
+        span.toggle-wrapper-inner
+          toggle(v-model="is_advanced_mode" id="advanced_mode_toggle" onLabel="on" offLabel="off")
         div.hint {{ is_advanced_mode ? "(all params visible)" : "(basic params visible)" }}
 
   div.prompt-wrapper(v-if="params.is_valid")

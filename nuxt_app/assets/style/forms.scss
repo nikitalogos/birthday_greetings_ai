@@ -7,7 +7,7 @@ form {
   .param {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: top;
     justify-content: left;
     flex-wrap: wrap;
 
@@ -31,8 +31,9 @@ form {
   .multi-select-wrapper,
   input,
   .date-wrapper {
-    width: calc(100% - 150px);
-    min-width: 200px;
+    flex-base: calc(100% - 150px);
+    flex: 1;
+    min-width: 300px;
   }
   .textarea-wrapper,
   textarea {
@@ -40,10 +41,10 @@ form {
   }
   .hint {
     color: var(--color-faded);
+    margin: 5px 0;
   }
   .multi-select-wrapper .hint {
     margin-left: 5px;
-    margin-bottom: 2px;
   }
   input,
   textarea {
@@ -100,8 +101,8 @@ form {
     align-items: center;
     flex-wrap: wrap;
 
-    .hint {
-      margin-left: 10px;
+    .toggle-wrapper-inner {
+      margin-right: 10px;
     }
   }
 }
