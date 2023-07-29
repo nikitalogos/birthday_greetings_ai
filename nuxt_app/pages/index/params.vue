@@ -139,7 +139,7 @@ div.page-wrapper
 
   div.sep-line
   div.buttons-wrapper
-    button.button.create(:class="{disabled: !params.is_valid || chatbot.is_in_progress}" @click="create_greeting")
+    button.button.create(:class="{disabled: !chatbot.can_run}" @click="create_greeting")
       div.inside
         | Create greeting!
         i.magic.icon(style="margin-left: 5px")

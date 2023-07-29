@@ -65,10 +65,10 @@ div.page-wrapper
     div.shadow.bottom
 
   div
-    button.button(@click="regenerate_response" :class="{disabled: !params.is_valid || chatbot.is_in_progress}")
+    button.button(@click="regenerate_response" :class="{disabled: !chatbot.can_run}")
       i.sync.icon
       | Regenerate response
-    button.button(@click="$router.push('/params')")
+    button.button(@click="$router.push('/params')" :class="{disabled: !params.is_valid}")
       i.edit.outline.icon
       | Edit params
 

@@ -20,56 +20,56 @@ export const chatbot = reactive({
   is_in_progress: false,
 
   chat_history: [
-//    {
-//      timestamp_ms: new Date().getTime(),
-//      duration_ms: 10.533 * 1000,
-//      prompt: "Hello, how are you?",
-//      response: "I'm fine, how are you?",
-//      is_error: false,
-//      error_str: "",
-//      completed: true,
-//    },
-//    {
-//      timestamp_ms: new Date().getTime(),
-//      duration_ms: 10.533 * 1000,
-//      prompt:
-//        "Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?",
-//      response:
-//        "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
-//      is_error: false,
-//      error_str: "",
-//      completed: true,
-//    },
-//    {
-//      timestamp_ms: new Date().getTime(),
-//      duration_ms: 10.533 * 1000,
-//      prompt:
-//        "Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?",
-//      response:
-//        "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
-//      is_error: false,
-//      error_str: "",
-//      completed: true,
-//    },
-//    {
-//      timestamp_ms: new Date().getTime(),
-//      duration_ms: 10.533 * 1000,
-//      prompt:
-//        "Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?",
-//      response:
-//        "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
-//      is_error: false,
-//      error_str: "",
-//    },
-//    {
-//      timestamp_ms: new Date().getTime(),
-//      duration_ms: 10.533 * 1000,
-//      prompt: "Hello, how are you?",
-//      response: "",
-//      is_error: true,
-//      error_str: "Access denied",
-//      completed: true,
-//    },
+    //    {
+    //      timestamp_ms: new Date().getTime(),
+    //      duration_ms: 10.533 * 1000,
+    //      prompt: "Hello, how are you?",
+    //      response: "I'm fine, how are you?",
+    //      is_error: false,
+    //      error_str: "",
+    //      completed: true,
+    //    },
+    //    {
+    //      timestamp_ms: new Date().getTime(),
+    //      duration_ms: 10.533 * 1000,
+    //      prompt:
+    //        "Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?",
+    //      response:
+    //        "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
+    //      is_error: false,
+    //      error_str: "",
+    //      completed: true,
+    //    },
+    //    {
+    //      timestamp_ms: new Date().getTime(),
+    //      duration_ms: 10.533 * 1000,
+    //      prompt:
+    //        "Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?",
+    //      response:
+    //        "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
+    //      is_error: false,
+    //      error_str: "",
+    //      completed: true,
+    //    },
+    //    {
+    //      timestamp_ms: new Date().getTime(),
+    //      duration_ms: 10.533 * 1000,
+    //      prompt:
+    //        "Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?",
+    //      response:
+    //        "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
+    //      is_error: false,
+    //      error_str: "",
+    //    },
+    //    {
+    //      timestamp_ms: new Date().getTime(),
+    //      duration_ms: 10.533 * 1000,
+    //      prompt: "Hello, how are you?",
+    //      response: "",
+    //      is_error: true,
+    //      error_str: "Access denied",
+    //      completed: true,
+    //    },
   ],
 
   response_or_error(message) {
@@ -158,4 +158,8 @@ export const chatbot = reactive({
     this.chat_history.pop(message);
     this.chat_history.push(message);
   },
+});
+
+chatbot.can_run = computed(() => {
+  return params.is_valid && chatbot.token && !chatbot.is_in_progress;
 });
