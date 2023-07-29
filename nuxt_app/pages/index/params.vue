@@ -142,7 +142,7 @@ div.page-wrapper
 
   div.cover-wrapper
     div(style="flex: 1")
-    img(src="images/girl.png" alt="A teenager girl with a present")
+    img(src="/images/girl.png" alt="A teenager girl with a present")
 
   InfoBox
     | Here are some AI models to paste your prompt into:<br>

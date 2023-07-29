@@ -40,7 +40,7 @@ div.page-wrapper
     ) Star
 
   div.cover-wrapper
-    img(src="images/old_lady.png" alt="Robot gives a present to an old lady")
+    img(src="/images/old_lady.png" alt="Robot gives a present to an old lady")
 
 </template>
 

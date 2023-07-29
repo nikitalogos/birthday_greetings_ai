@@ -24,6 +24,10 @@ run_prod:
 deploy:
 	flyctl deploy
 
+.PHONY: check_server
+check_server:
+	curl -X POST -H "Content-Type: application/json" -d '{}' https://birthday-greetings-ai.fly.dev/api/ping
+
 
 .PHONY: check
 check:

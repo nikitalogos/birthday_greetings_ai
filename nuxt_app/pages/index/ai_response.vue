@@ -28,7 +28,7 @@ div.page-wrapper
   div.cover-wrapper
     h1(style="white-space: nowrap;") AI Response
     div(style="flex: 1")
-    img(src="images/boy.png" alt="A boy with a present")
+    img(src="/images/boy.png" alt="A boy with a present")
 
   p To clear history, refresh the page
   p You can download conversation:

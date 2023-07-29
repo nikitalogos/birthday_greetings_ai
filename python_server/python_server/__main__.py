@@ -121,6 +121,10 @@ if __name__ == "__main__":
 
     server = Server(
         routes_post={
+            "/api/ping": [
+                lambda r_json: r_json,
+                Validator({}),
+            ],
             "/api/chatbot": [
                 chatbot,
                 Validator(
