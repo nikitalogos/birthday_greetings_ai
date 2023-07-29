@@ -2,6 +2,7 @@
 export default defineNuxtComponent({
   data() {
     return {
+      params,
       chatbot,
       format_datetime,
     };
@@ -64,7 +65,7 @@ div.page-wrapper
     div.shadow.bottom
 
   div
-    button.button(@click="regenerate_response")
+    button.button(@click="regenerate_response" :class="{disabled: !params.is_valid || chatbot.is_in_progress}")
       i.sync.icon
       | Regenerate response
     button.button(@click="$router.push('/params')")

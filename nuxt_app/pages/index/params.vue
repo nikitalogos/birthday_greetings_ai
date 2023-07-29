@@ -12,6 +12,7 @@ export default defineNuxtComponent({
   data() {
     return {
       params,
+      chatbot,
 
       is_advanced_mode: false,
     };
@@ -27,6 +28,13 @@ export default defineNuxtComponent({
       const value = event.target.value.slice(0, param.max_length);
       param.value = value;
       event.target.value = value; // to update textarea, because :value="param.value" doesn't work
+    },
+    create_greeting() {
+      this.chatbot.run();
+
+      setTimeout(() => {
+        this.$router.push("/ai_response");
+      }, 100);
     },
   },
   created() {
@@ -131,7 +139,7 @@ div.page-wrapper
 
   div.sep-line
   div.buttons-wrapper
-    button.button.create(:class="{disabled: !params.is_valid}")
+    button.button.create(:class="{disabled: !params.is_valid || chatbot.is_in_progress}" @click="create_greeting")
       div.inside
         | Create greeting!
         i.magic.icon(style="margin-left: 5px")

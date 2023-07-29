@@ -17,58 +17,59 @@ function export_file(name, text) {
 
 export const chatbot = reactive({
   token: null,
+  is_in_progress: false,
 
   chat_history: [
-    {
-      timestamp_ms: new Date().getTime(),
-      duration_ms: 10.533 * 1000,
-      prompt: "Hello, how are you?",
-      response: "I'm fine, how are you?",
-      is_error: false,
-      error_str: "",
-      completed: true,
-    },
-    {
-      timestamp_ms: new Date().getTime(),
-      duration_ms: 10.533 * 1000,
-      prompt:
-        "Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?",
-      response:
-        "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
-      is_error: false,
-      error_str: "",
-      completed: true,
-    },
-    {
-      timestamp_ms: new Date().getTime(),
-      duration_ms: 10.533 * 1000,
-      prompt:
-        "Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?",
-      response:
-        "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
-      is_error: false,
-      error_str: "",
-      completed: true,
-    },
-    {
-      timestamp_ms: new Date().getTime(),
-      duration_ms: 10.533 * 1000,
-      prompt:
-        "Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?",
-      response:
-        "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
-      is_error: false,
-      error_str: "",
-    },
-    {
-      timestamp_ms: new Date().getTime(),
-      duration_ms: 10.533 * 1000,
-      prompt: "Hello, how are you?",
-      response: "",
-      is_error: true,
-      error_str: "Access denied",
-      completed: true,
-    },
+//    {
+//      timestamp_ms: new Date().getTime(),
+//      duration_ms: 10.533 * 1000,
+//      prompt: "Hello, how are you?",
+//      response: "I'm fine, how are you?",
+//      is_error: false,
+//      error_str: "",
+//      completed: true,
+//    },
+//    {
+//      timestamp_ms: new Date().getTime(),
+//      duration_ms: 10.533 * 1000,
+//      prompt:
+//        "Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?",
+//      response:
+//        "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
+//      is_error: false,
+//      error_str: "",
+//      completed: true,
+//    },
+//    {
+//      timestamp_ms: new Date().getTime(),
+//      duration_ms: 10.533 * 1000,
+//      prompt:
+//        "Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?",
+//      response:
+//        "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
+//      is_error: false,
+//      error_str: "",
+//      completed: true,
+//    },
+//    {
+//      timestamp_ms: new Date().getTime(),
+//      duration_ms: 10.533 * 1000,
+//      prompt:
+//        "Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?Hello, how are you?",
+//      response:
+//        "I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?I'm fine, how are you?",
+//      is_error: false,
+//      error_str: "",
+//    },
+//    {
+//      timestamp_ms: new Date().getTime(),
+//      duration_ms: 10.533 * 1000,
+//      prompt: "Hello, how are you?",
+//      response: "",
+//      is_error: true,
+//      error_str: "Access denied",
+//      completed: true,
+//    },
   ],
 
   response_or_error(message) {
@@ -100,19 +101,24 @@ export const chatbot = reactive({
   },
 
   async run_impl(prompt) {
-    const response = await fetch("http://localhost:8080/api/chatbot", {
-      method: "POST",
-      body: JSON.stringify({
-        token: this.token,
-        prompt,
-      }),
-    });
-    const data = await response.json();
+    this.is_in_progress = true
+    try {
+      const response = await fetch("http://localhost:8080/api/chatbot", {
+        method: "POST",
+        body: JSON.stringify({
+          token: this.token,
+          prompt,
+        }),
+      });
+      const data = await response.json();
 
-    if (data.error) {
-      throw new Error(data.error);
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      return data.message;
+    } finally {
+      this.is_in_progress = false
     }
-    return data.message;
   },
 
   async run() {
@@ -124,7 +130,7 @@ export const chatbot = reactive({
     let error_str = "";
 
     const message = {
-      timestamp_ms: start_time.getTime(),
+      timestamp_ms: start_time,
       prompt,
       // temporary values:
       duration_ms: 0,
@@ -148,5 +154,8 @@ export const chatbot = reactive({
     message.is_error = is_error;
     message.error_str = error_str;
     message.completed = true;
+    // trigger vue3 to update message
+    this.chat_history.pop(message);
+    this.chat_history.push(message);
   },
 });

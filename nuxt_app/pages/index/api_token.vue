@@ -6,7 +6,6 @@ export default defineNuxtComponent({
 
       is_token_visible: false,
 
-      is_in_progress: false,
       is_error: false,
       result_str: "",
     };
@@ -15,7 +14,6 @@ export default defineNuxtComponent({
     async submit_token() {
       // check token
       try {
-        this.is_in_progress = true;
         this.is_error = false;
         this.result_str = "";
 
@@ -31,8 +29,6 @@ export default defineNuxtComponent({
         this.is_error = true;
         this.result_str = error.message;
       }
-
-      this.is_in_progress = false;
     },
     go_to_replicate() {
       window.open("https://replicate.com/account/api-tokens", "_blank", "noopener");
@@ -61,11 +57,11 @@ div.page-wrapper
         i.white.eye.icon
       button.show-token(v-else v-tooltip aria-label="Show token" @click="is_token_visible = true")
         i.white.eye.slash.icon
-      button.button(:class="{ disabled: !chatbot.token || is_in_progress }" type="submit" @click.prevent="submit_token")
+      button.button(:class="{ disabled: !chatbot.token || chatbot.is_in_progress }" type="submit" @click.prevent="submit_token")
         | Next
         i.white.arrow.right.icon(style="margin-left: 5px")
 
-  div.loading(v-if="is_in_progress")
+  div.loading(v-if="chatbot.is_in_progress")
     div.ui.active.inline.loader
     div(style="color: var(--accent-color);") Your token is being checked, please wait...
   div.result(v-if="result_str" :class="{ error: is_error }") {{ result_str }}
