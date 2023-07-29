@@ -116,7 +116,7 @@ div.page-wrapper
         toggle(v-model="is_advanced_mode" id="advanced_mode_toggle" onLabel="on" offLabel="off")
         div.hint {{ is_advanced_mode ? "(all params visible)" : "(basic params visible)" }}
 
-  div.prompt-wrapper(v-if="is_advanced_mode && params.is_valid")
+  div.prompt-wrapper(v-if="params.is_valid")
     div.sep-line
     div.title Prompt for AI model:
       ClipboardButton(name="prompt" :text="params.prompt" accent style="margin-left: 10px")

@@ -1,6 +1,5 @@
 <script>
-export default defineNuxtComponent({
-});
+export default defineNuxtComponent({});
 </script>
 
 <template lang="pug">

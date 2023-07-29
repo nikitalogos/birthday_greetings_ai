@@ -350,5 +350,8 @@ params.prompt = computed(() => {
   if (v.comment) {
     prompt += `Additional context: ${v.comment}\n`;
   }
+
+  prompt = prompt.replace(/\n\n\n/g, "\n\n");
+  prompt = prompt.trim();
   return prompt;
 });
