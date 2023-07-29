@@ -29,7 +29,7 @@ form {
   }
 
   .multi-select-wrapper,
-  input,
+  :not(.multiselect-tags-search-wrapper) > input,
   .date-wrapper {
     flex-base: calc(100% - 150px);
     flex: 1;
@@ -45,9 +45,6 @@ form {
   }
   .multi-select-wrapper .hint {
     margin-left: 5px;
-  }
-  .multiselect-tags-search-wrapper {
-    overflow-x: hidden; // hide ugly input overflow
   }
   input,
   textarea {

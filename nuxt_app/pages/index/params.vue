@@ -37,12 +37,6 @@ export default defineNuxtComponent({
       }, 100);
     },
   },
-  created() {
-    // init params from query string
-    const date_str = this.$route.query.date_of_birth ?? "";
-    this.params.date_of_birth.value = isNaN(Date.parse(date_str)) ? null : new Date(date_str);
-    this.params.name.value = this.$route.query.name ?? null;
-  },
 });
 </script>
 
