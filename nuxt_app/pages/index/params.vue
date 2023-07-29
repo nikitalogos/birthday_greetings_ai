@@ -42,7 +42,7 @@ export default defineNuxtComponent({
 div.page-wrapper
   h1 Params
   div.motivation
-    div Let's create an image of a person to greet:
+    div Let's create a portrait of the person you want to congratulate
   form
     div.group(v-for="(group, idx) in params.groups" :key="idx")
       div(v-if="!group.advanced || is_advanced_mode")
