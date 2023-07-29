@@ -93,15 +93,12 @@ div.page-wrapper
   }
 }
 
-.motivation,
-.description,
-.result {
-  white-space: pre-line;
-}
 .motivation {
   font-size: 1.2rem;
   font-weight: bold;
   margin: 10px 0;
+
+  white-space: pre-line;
 
   color: var(--accent-color);
 }
@@ -143,6 +140,8 @@ form {
   }
 }
 .result {
+  white-space: pre-line;
+
   color: var(--accent-color);
   &.error {
     color: var(--error-color);

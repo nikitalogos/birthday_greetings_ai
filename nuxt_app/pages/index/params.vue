@@ -41,6 +41,8 @@ export default defineNuxtComponent({
 <template lang="pug">
 div.page-wrapper
   h1 Params
+  div.motivation
+    div Let's create an image of a person to greet:
   form
     div.group(v-for="(group, idx) in params.groups" :key="idx")
       div(v-if="!group.advanced || is_advanced_mode")
@@ -126,11 +128,12 @@ div.page-wrapper
 
   div.sep-line
   div.buttons-wrapper
-    button.button.accent.create(:class="{disabled: !params.is_valid}")
-      | Create greeting!
-      i.magic.icon(style="margin-left: 5px")
-    div(:style="{opacity: params.is_valid ? '1' : '0.2'}") or
-    ClipboardButton.copy(name="prompt" :tooltip="false" :text="params.prompt" :class="{disabled: !params.is_valid}")
+    button.button.create(:class="{disabled: !params.is_valid}")
+      div.inside
+        | Create greeting!
+        i.magic.icon(style="margin-left: 5px")
+    div.hint(:style="{opacity: params.is_valid ? '1' : '0.2'}") or you can just
+    ClipboardButton.copy(name="prompt" :tooltip="false" :popup_right="true" :text="params.prompt" :class="{disabled: !params.is_valid}")
 
   div.cover-wrapper
     div(style="flex: 1")
@@ -155,6 +158,16 @@ div.page-wrapper
 <style lang="scss" src="@/assets/style/vueform-toggle.scss"></style>
 
 <style scoped lang="scss">
+.motivation {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 10px 0 20px;
+
+  white-space: pre-line;
+
+  color: var(--accent-color);
+}
+
 .prompt-wrapper {
   color: var(--accent-color);
 
@@ -174,15 +187,43 @@ div.page-wrapper
 .buttons-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
 
   button.button {
+    width: fit-content;
+    margin-left: 0;
+
+    color: var(--bg-color);
+    &:not(.disabled) {
+      opacity: 0.9;
+      &:hover {
+        opacity: 1;
+      }
+    }
+
     &.create {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
+      border-color: var(--accent-color);
+
+      border-radius: 6px;
+      padding: 2px;
+      .inside {
+        border-radius: 4px;
+        padding: 0.5rem;
+
+        background-color: var(--accent-color);
+      }
     }
     &.copy {
+      border: none;
+      background-color: var(--white-color);
       font-size: 0.9rem;
     }
+  }
+  .hint {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin: 10px 0;
   }
 }
 
@@ -191,7 +232,7 @@ div.page-wrapper
   flex-direction: row;
 
   img {
-    margin-top: -60px;
+    margin-top: -150px;
     width: 210px;
     display: block;
 

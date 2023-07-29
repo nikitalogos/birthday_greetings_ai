@@ -20,6 +20,8 @@ div.info-box
   border: 1px solid var(--border-color);
   border-radius: 5px;
 
+  white-space: pre-line;
+
   i {
     margin-right: 10px;
     font-size: 1.5rem;
