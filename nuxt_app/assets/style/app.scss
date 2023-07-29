@@ -112,7 +112,14 @@ button {
   border-radius: 0.25rem;
   border: 1px solid var(--border-color);
   &:not(.disabled):hover {
-    border: 1px solid var(--white-color);
+    border: 1px solid var(--border-color-active);
+  }
+  &.accent {
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color-transparent);
+    &:not(.disabled):hover {
+      border: 1px solid var(--accent-color);
+    }
   }
 
   &.disabled {

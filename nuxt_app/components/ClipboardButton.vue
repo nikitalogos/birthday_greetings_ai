@@ -13,6 +13,10 @@ export default defineNuxtComponent({
       type: Boolean,
       default: false,
     },
+    tooltip: {
+      type: Boolean,
+      default: true,
+    },
   },
   methods: {
     copy_to_clipboard(event) {
@@ -29,7 +33,13 @@ export default defineNuxtComponent({
 </script>
 
 <template lang="pug">
-button(@click="copy_to_clipboard($event)" v-tooltip :aria-label="`Copy ${name} to clipboard`")
+button(
+  :class="{button: !tooltip}"
+  :v-tooltip="tooltip"
+  :aria-label="`Copy ${name} to clipboard`"
+  @click="copy_to_clipboard($event)"
+)
+  span(v-if="!tooltip") Copy  {{ name }}
   i.clipboard.icon(:class="{accent: accent}")
   span.copied Copied!
 </template>
@@ -45,7 +55,7 @@ button {
     margin-right: 5px;
     padding: 5px 10px;
     top: 50%;
-    margin-top: -50%;
+    transform: translateY(-50%);
 
     border: 1px solid;
     border-radius: 4px;

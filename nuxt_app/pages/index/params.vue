@@ -126,13 +126,11 @@ div.page-wrapper
 
   div.sep-line
   div.buttons-wrapper
-    button.button.create(:class="{disabled: !params.is_valid}")
+    button.button.accent.create(:class="{disabled: !params.is_valid}")
       | Create greeting!
       i.magic.icon(style="margin-left: 5px")
     div(:style="{opacity: params.is_valid ? '1' : '0.2'}") or
-    button.button.copy(:class="{disabled: !params.is_valid}")
-      | Copy prompt
-      i.copy.icon(style="margin-left: 5px")
+    ClipboardButton.copy(name="prompt" :tooltip="false" :text="params.prompt" :class="{disabled: !params.is_valid}")
 
   div.cover-wrapper
     div(style="flex: 1")
@@ -172,8 +170,6 @@ div.page-wrapper
   button.button {
     &.create {
       font-size: 1.2rem;
-      color: var(--accent-color);
-      border-color: var(--accent-color);
     }
     &.copy {
       font-size: 0.9rem;
