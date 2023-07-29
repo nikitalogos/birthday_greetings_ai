@@ -103,17 +103,18 @@ button {
 
   font-weight: bold;
 
-  border: solid 1px transparent;
-  border-radius: 0.25rem;
-
   text-align: center;
   cursor: pointer;
   user-select: none;
 
+  backdrop-filter: blur(10px);
+
+  border-radius: 0.25rem;
   border: 1px solid var(--border-color);
   &:not(.disabled):hover {
     border: 1px solid var(--white-color);
   }
+
   &.disabled {
     cursor: default;
     opacity: 0.2;

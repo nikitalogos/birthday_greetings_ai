@@ -76,6 +76,11 @@ div.page-wrapper
       | This app uses #[a(href="https://replicate.com/" target="_blank" rel="noopener") Replicate] as a backend.
       | <br/>{{ prevent_short_word_hangs("To proceed, you need to obtain API token from it.") }}
       | <br/>{{ prevent_short_word_hangs("We don't store your token: it will be deleted if you leave page or refresh it.") }}
+
+  div.description
+    i.info.circle.icon(style="margin-right: 10px; font-size: 1.5rem; color: var(--accent-color);")
+    div
+      | You can skip this step and copy prompt for your favourite chatbot on the next step.
 </template>
 
 <style scoped lang="scss">
@@ -152,6 +157,7 @@ form {
   flex-direction: row;
   align-items: center;
 
+  margin: 20px 0;
   padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 5px;
