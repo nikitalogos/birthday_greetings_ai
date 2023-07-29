@@ -101,7 +101,7 @@ export const chatbot = reactive({
   },
 
   async run_impl(prompt) {
-    this.is_in_progress = true
+    this.is_in_progress = true;
     try {
       const response = await fetch("http://localhost:8080/api/chatbot", {
         method: "POST",
@@ -117,7 +117,7 @@ export const chatbot = reactive({
       }
       return data.message;
     } finally {
-      this.is_in_progress = false
+      this.is_in_progress = false;
     }
   },
 
