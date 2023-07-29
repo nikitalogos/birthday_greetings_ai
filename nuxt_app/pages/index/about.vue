@@ -19,11 +19,11 @@ div.page-wrapper
   h3 Licences:
   p This app is licenced under #[a(href="https://github.com/nikitalogos/birthday_greetings_ai/blob/main/LICENCE" target="_blank" rel="noopener") MIT licence].
   p
-    | It uses LLaMA 2 language model developed by Meta, which is licenced under
+    | It uses Llama 2 language model developed by Meta, which is licenced under
     a(href="https://ai.meta.com/resources/models-and-libraries/llama-downloads/" target="_blank" rel="noopener")
       |  Llama 2 Community License Agreement
   p
-    | LLaMA 2 is served by #[a(href="https://replicate.com/" target="_blank" rel="noopener") Replicate.com]
+    | Llama 2 is served by #[a(href="https://replicate.com/" target="_blank" rel="noopener") Replicate.com]
     | under #[a(href="https://replicate.com/terms" target="_blank" rel="noopener") Replicate Terms of Use]
   p
     | Arts were generated via #[b Stable Diffusion XL] at #[a(href="https://clipdrop.co/stable-diffusion" target="_blank" rel="noopener") Clipdrop.co]

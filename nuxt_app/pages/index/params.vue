@@ -116,7 +116,7 @@ div.page-wrapper
         toggle(v-model="is_advanced_mode" id="advanced_mode_toggle" onLabel="on" offLabel="off")
         div.hint {{ is_advanced_mode ? "(all params visible)" : "(basic params visible)" }}
 
-  div.prompt-wrapper(v-if="is_advanced_mode")
+  div.prompt-wrapper(v-if="is_advanced_mode && params.is_valid")
     div.sep-line
     div.title Prompt for AI model:
       ClipboardButton(name="prompt" :text="params.prompt" accent style="margin-left: 10px")
@@ -135,6 +135,15 @@ div.page-wrapper
   div.cover-wrapper
     div(style="flex: 1")
     img(src="images/girl.png" alt="A teenager girl with a present")
+
+  InfoBox
+    | Here are some AI models to paste your prompt into:<br>
+    a(href="https://chat.openai.com/" target="_blank" rel="noopener") ChatGPT
+    | ,&nbsp;
+    a(href="https://chat.claudeai.ai" target="_blank" rel="noopener") Claude 2
+    | ,&nbsp;
+    a(href="https://huggingface.co/spaces/ysharma/Explore_llamav2_with_TGI" target="_blank" rel="noopener") Llama 2
+
 </template>
 
 <style src="@vuepic/vue-datepicker/dist/main.css"></style>

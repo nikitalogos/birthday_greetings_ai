@@ -70,17 +70,14 @@ div.page-wrapper
     div(style="color: var(--accent-color);") Your token is being checked, please wait...
   div.result(v-if="result_str" :class="{ error: is_error }") {{ result_str }}
 
-  div.description
-    i.info.circle.icon(style="margin-right: 10px; font-size: 1.5rem; color: var(--accent-color);")
-    div
-      | This app uses #[a(href="https://replicate.com/" target="_blank" rel="noopener") Replicate] as a backend.
-      | <br/>{{ prevent_short_word_hangs("To proceed, you need to obtain API token from it.") }}
-      | <br/>{{ prevent_short_word_hangs("We don't store your token: it will be deleted if you leave page or refresh it.") }}
+  InfoBox
+    | This app uses #[a(href="https://replicate.com/" target="_blank" rel="noopener") Replicate] as a backend.
+    | <br/>{{ prevent_short_word_hangs("To proceed, you need to obtain API token from it.") }}
+    | <br/>{{ prevent_short_word_hangs("We don't store your token: it will be deleted if you leave page or refresh it.") }}
 
-  div.description
-    i.info.circle.icon(style="margin-right: 10px; font-size: 1.5rem; color: var(--accent-color);")
-    div
-      | You can skip this step and copy prompt for your favourite chatbot on the next step.
+  InfoBox
+    | You can #[nuxt-link(to="/params") skip] this step
+    | and copy prompt for your favourite chatbot on the #[nuxt-link(to="/params") next step].
 </template>
 
 <style scoped lang="scss">
@@ -150,16 +147,5 @@ form {
   &.error {
     color: var(--error-color);
   }
-}
-
-.description {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  margin: 20px 0;
-  padding: 10px;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
 }
 </style>
