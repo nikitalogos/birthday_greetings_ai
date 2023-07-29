@@ -46,7 +46,7 @@ div.page-wrapper
             b You:
             span
               | {{ message.is_prompt_visible ? message.prompt : "..." }}
-            ClipboardButton(v-if="message.is_prompt_visible" name="prompt" :text="message.prompt")
+            ClipboardButton(v-if="message.is_prompt_visible" name="prompt" :text="message.prompt" compact)
             button(v-if="message.is_prompt_visible" @click="message.is_prompt_visible = false" v-tooltip aria-label="Hide prompt")
               i.eye.icon
             button(v-else @click="message.is_prompt_visible = true" v-tooltip aria-label="Show prompt")
@@ -54,7 +54,7 @@ div.page-wrapper
           div.response.phrase(:class="{error: message.is_error}")
             b AI:
             span {{ chatbot.response_or_error(message) }}
-            ClipboardButton(name="response" :text="chatbot.response_or_error(message)")
+            ClipboardButton(name="response" :text="chatbot.response_or_error(message)" compact)
           div.time
             i.time.icon
             | {{ format_datetime(message.timestamp_ms) }}

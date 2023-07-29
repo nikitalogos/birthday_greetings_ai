@@ -16,7 +16,7 @@ div.page-wrapper
   p #[i.github.icon] Github: #[a(href="https://github.com/nikitalogos/birthday_greetings_ai" target="_blank" rel="noopener") birthday_greetings_ai]
 
 
-  h3 Licences:
+  h2 Licences:
   p This app is licenced under #[a(href="https://github.com/nikitalogos/birthday_greetings_ai/blob/main/LICENCE" target="_blank" rel="noopener") MIT licence].
   p
     | It uses Llama 2 language model developed by Meta, which is licenced under
@@ -29,7 +29,7 @@ div.page-wrapper
     | Arts were generated via #[b Stable Diffusion XL] at #[a(href="https://clipdrop.co/stable-diffusion" target="_blank" rel="noopener") Clipdrop.co]
 
 
-  h3 Support me:
+  h2 Support me:
   p.github-star
     span If you like this project, leave star on GitHub:
     github-button.gh(
@@ -45,7 +45,7 @@ div.page-wrapper
 </template>
 
 <style scoped lang="scss">
-h3 {
+h2 {
   margin-top: 50px;
 }
 

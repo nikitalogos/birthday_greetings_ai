@@ -46,6 +46,9 @@ form {
   .multi-select-wrapper .hint {
     margin-left: 5px;
   }
+  .multiselect-tags-search-wrapper {
+    overflow-x: hidden; // hide ugly input overflow
+  }
   input,
   textarea {
     box-sizing: border-box;

@@ -88,6 +88,7 @@ div.page-wrapper
               placeholder="Select or type your own wishes"
               :searchable="true"
               :createOption="true"
+              :canClear="false"
             )
             div.hint (Click on wish or press Enter to add it)
           span.toggle-wrapper(v-else-if="param.type === 'toggle'")
@@ -123,7 +124,7 @@ div.page-wrapper
   div.prompt-wrapper(v-if="params.is_valid")
     div.sep-line
     div.title Prompt for AI model:
-      ClipboardButton(name="prompt" :text="params.prompt" accent style="margin-left: 10px")
+      ClipboardButton(name="prompt" :text="params.prompt" compact accent popup_right style="margin-left: 10px")
     div.text "{{ params.prompt }}"
 
   //pre {{ params.values }}
@@ -135,7 +136,7 @@ div.page-wrapper
         | Create greeting!
         i.magic.icon(style="margin-left: 5px")
     div.hint(:style="{opacity: params.is_valid ? '1' : '0.2'}") or you can just
-    ClipboardButton.copy(name="prompt" :tooltip="false" :popup_right="true" :text="params.prompt" :class="{disabled: !params.is_valid}")
+    ClipboardButton.copy(name="prompt" popup_right :text="params.prompt" :class="{disabled: !params.is_valid}")
 
   div.cover-wrapper
     div(style="flex: 1")
