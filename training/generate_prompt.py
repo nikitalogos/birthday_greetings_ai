@@ -205,27 +205,27 @@ def generate_random_comment():
 
 @dataclasses.dataclass
 class PromptParams:
-    name: str = None
+    name: str
     # date
-    date_of_birth: str = None
-    use_age: bool = None
-    use_zodiac_sign: bool = None
+    date_of_birth: str
+    use_age: bool
+    use_zodiac_sign: bool
     # content
-    what_to_wish: list = None
-    target_language: str = None
+    what_to_wish: list
+    target_language: str
     # personal info
-    gender: str = None
-    relationship: str = None
-    profession: str = None
-    hobby: str = None
+    gender: str
+    relationship: str
+    profession: str
+    hobby: str
     # style
-    use_emojis: int = None
-    greeting_length: str = None
-    greeting_style: str = None
-    theme: str = None
-    use_quotation: bool = None
-    use_affirmation: bool = None
-    comment: str = None
+    use_emojis: int
+    greeting_length: str
+    greeting_style: str
+    theme: str
+    use_quotation: bool
+    use_affirmation: bool
+    comment: str
 
     @property
     def age(self):

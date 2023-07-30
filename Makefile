@@ -2,6 +2,10 @@
 format_check:
 	cd python_server && make format
 	cd python_server && make check
+
+	cd training && make format
+	cd training && make check
+
 	cd nuxt_app && npm run format
 
 .PHONY: install_git_pre_commit_hook
