@@ -32,20 +32,28 @@ For example, here's what I've managed to generate in OpenAI's GPT-4:
 
 ## Integrations
 
-Birthday Greetings AI supports passing `name` and `date_of_birth` params in url query:
+Birthday Greetings AI supports passing params in url query:
 ```
-https://logosnikita.com/birthday_greetings_ai/?name=Victor&date_of_birth=1998-04-21
+https://logosnikita.com/birthday_greetings_ai/?name=Victor&date_of_birth=1798-07-30&use_age=false&use_zodiac_sign=true
 ```
-1. Spaces (and other special characters) in `name` should be encoded to be a valid URL: 
-   - `Victor Frankenstein` → `Victor%20Frankenstein`
-2. `date_of_birth` should be in `YYYY-MM-DD` format
+
+### Supported params
+
+| Parameter         | Format            | Example               |
+|:------------------|:------------------|:----------------------|
+| `name`            | URL encoded       | `Victor+Frankenstein` |
+| `date_of_birth`   | `YYYY-MM-DD`      | `1798-07-30`          |
+| `use_age`         | `true` or `false` | `false`               |
+| `use_zodiac_sign` | `true` or `false` | `true`                |
+
+If you need more params for your application, feel free to contact me :)
 
 ### Example integration
 
 My another project, [Birthday Reminder](https://github.com/nikitalogos/birthday_reminder) has integration with `Birthday Greetings AI`.
 
 It creates birthday events in Google Calendar and 
-adds a link to this app with pre-computed `name` and `date_of_birth` fields into the event description,
+adds a link to this app with pre-computed `name`, `date_of_birth`, etc. fields into the event description,
 so you can just click it from calendar or from email notification.
 
 ## Tech specs
