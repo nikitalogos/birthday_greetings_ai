@@ -61,9 +61,9 @@ div.page-wrapper
         i.white.eye.icon
       button.show-token(v-else v-tooltip aria-label="Show token" @click="is_token_visible = true")
         i.white.eye.slash.icon
-      button.button(:class="{ disabled: !chatbot.token || is_in_progress }" type="submit" @click.prevent="submit_token")
+      button.button.next(:class="{ disabled: !chatbot.token || is_in_progress }" type="submit" @click.prevent="submit_token")
         | Next
-        i.white.arrow.right.icon(style="margin-left: 5px")
+        i.arrow.right.icon(style="margin-left: 5px")
 
   div.loading(v-if="is_in_progress")
     div.ui.active.inline.loader
@@ -71,13 +71,18 @@ div.page-wrapper
   div.result(v-if="result_str" :class="{ error: is_error }") {{ result_str }}
 
   InfoBox
-    | This app uses #[a(href="https://replicate.com/" target="_blank" rel="noopener") Replicate] as a backend.
+    | This app uses #[a(href="https://replicate.com/" target="_blank" rel="noopener") Replicate]
+    | as a backend for Llama 2 model.
     | <br/>{{ prevent_short_word_hangs("To proceed, you need to obtain API token from it.") }}
     | <br/>{{ prevent_short_word_hangs("We don't store your token: it will be deleted if you leave page or refresh it.") }}
 
-  InfoBox
-    | You can #[nuxt-link(to="/params") skip] this step
-    | and copy prompt for your favourite chatbot on the #[nuxt-link(to="/params") next step].
+  div
+    | You can
+    button.button.skip(@click="$router.push('/params')")
+      | Skip
+      i.angle.double.right.icon(style="margin-left: 5px")
+    | this step
+    | and copy prompt for your favourite chatbot on the #[nuxt-link(to="/params") next step].
 </template>
 
 <style scoped lang="scss">
@@ -116,8 +121,9 @@ form {
   button.show-token {
     width: 50px;
   }
-  button {
+  button.next {
     width: 100px;
+    margin: 0;
   }
 }
 
@@ -147,4 +153,9 @@ form {
     color: var(--error-color);
   }
 }
+
+.button.skip {
+  font-size: 0.8rem;
+}
+
 </style>
