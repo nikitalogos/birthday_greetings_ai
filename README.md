@@ -1,4 +1,4 @@
-![Copter with a present](docs/copter_leonardo.jpg)
+![Copter with a present](docs/copter_leonardo_no_bg.png)
 
 # Birthday Greetings AI
 
