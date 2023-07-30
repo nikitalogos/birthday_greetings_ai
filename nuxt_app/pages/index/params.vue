@@ -133,6 +133,9 @@ div.page-wrapper
 
   div.sep-line
   div.buttons-wrapper
+    div.need-token(v-if="!chatbot.token")
+      | Need token to create!
+      nuxt-link(to="/api_token" style="color: var(--accent-color)")  Get token
     button.button.create(:class="{disabled: !chatbot.can_run}" @click="create_greeting")
       div.inside
         | Create greeting!
@@ -146,11 +149,13 @@ div.page-wrapper
 
   InfoBox
     | Here are some AI models to paste your prompt into:<br>
-    a(href="https://chat.openai.com/" target="_blank" rel="noopener") ChatGPT
-    | ,&nbsp;
-    a(href="https://chat.claudeai.ai" target="_blank" rel="noopener") Claude 2
-    | ,&nbsp;
-    a(href="https://huggingface.co/spaces/ysharma/Explore_llamav2_with_TGI" target="_blank" rel="noopener") Llama 2
+    ul
+      li
+        a(href="https://chat.openai.com/" target="_blank" rel="noopener") ChatGPT
+      li
+        a(href="https://chat.claudeai.ai" target="_blank" rel="noopener") Claude 2
+      li
+        a(href="https://huggingface.co/spaces/ysharma/Explore_llamav2_with_TGI" target="_blank" rel="noopener") Llama 2 (current)
 
 </template>
 
