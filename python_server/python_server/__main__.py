@@ -86,8 +86,8 @@ def chatbot(r_json):
     user_prompt = r_json["prompt"]
     prompt = (
         "You are a helpful assistant. You do not respond as 'User' or pretend to be 'User'. "
-        "You only respond once as 'Assistant'.\n\n"
-        f"User: {user_prompt}\n\n"
+        "You only respond once as 'Assistant'.\n\n\n"
+        f"User: {user_prompt}\n\n\n"
         "Assistant: "
     )
     print(f"{prompt=}")
@@ -96,7 +96,7 @@ def chatbot(r_json):
         "a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5",
         input=dict(
             prompt=prompt,
-            temperature=0.1,
+            temperature=0.5,
             top_p=0.9,
             max_length=512,
             repetition_penalty=1,

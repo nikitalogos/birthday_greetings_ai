@@ -13,8 +13,6 @@ export default defineNuxtComponent({
     return {
       params,
       chatbot,
-
-      is_advanced_mode: false,
     };
   },
   methods: {
@@ -47,7 +45,7 @@ div.page-wrapper
     div Let's create a portrait of the person you want to congratulate
   form
     div.group(v-for="(group, idx) in params.groups" :key="idx")
-      div(v-if="!group.advanced || is_advanced_mode")
+      div(v-if="!group.advanced || params.is_advanced_mode")
         div.sep-line(v-if="idx > 0")
         div.group-label(v-if="!!group.label") {{ group.label }}
         div.param(v-for="param in group.items")
@@ -120,8 +118,8 @@ div.page-wrapper
       label.accent(for="advanced_mode_toggle") Advanced mode
       span.toggle-wrapper
         span.toggle-wrapper-inner
-          toggle(v-model="is_advanced_mode" id="advanced_mode_toggle" onLabel="on" offLabel="off")
-        div.hint {{ is_advanced_mode ? "(all params visible)" : "(basic params visible)" }}
+          toggle(v-model="params.is_advanced_mode" id="advanced_mode_toggle" onLabel="on" offLabel="off")
+        div.hint {{ params.is_advanced_mode ? "(all params visible)" : "(basic params visible)" }}
 
   div.prompt-wrapper(v-if="params.is_valid")
     div.sep-line

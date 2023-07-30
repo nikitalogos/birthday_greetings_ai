@@ -1,4 +1,4 @@
-import { reactive, computed } from "vue";
+import { reactive, computed, ref } from "vue";
 
 import { format_date } from "./utils";
 
@@ -205,6 +205,7 @@ params.use_age.hint = computed(
 params.use_zodiac_sign.hint = computed(
   () => "(Zodiac sign <b>" + (params.use_zodiac_sign.value ? "will" : "won't") + "</b> be mentioned in greeting)",
 );
+params.is_advanced_mode = ref(false);
 
 params.age = computed(() => {
   const now = new Date();

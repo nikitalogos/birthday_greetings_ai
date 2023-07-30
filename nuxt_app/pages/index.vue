@@ -11,8 +11,12 @@ export default defineNuxtComponent({
     this.params.name.value = this.$route.query.name ?? null;
     const date_str = this.$route.query.date_of_birth ?? "";
     this.params.date_of_birth.value = isNaN(Date.parse(date_str)) ? null : new Date(date_str);
-    this.params.use_age.value = this.$route.query.use_age?.toLowerCase() === "true" || false;
-    this.params.use_zodiac_sign.value = this.$route.query.use_zodiac_sign?.toLowerCase() === "true" || false;
+    if (this.$route.query.use_age) {
+      this.params.use_age.value = this.$route.query.use_age.toLowerCase() === "true";
+    }
+    if (this.$route.query.use_zodiac_sign) {
+      this.params.use_zodiac_sign.value = this.$route.query.use_zodiac_sign.toLowerCase() === "true";
+    }
 
     if (this.$route.path == "/") this.$router.push("/api_token");
   },
