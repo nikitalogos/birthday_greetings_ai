@@ -121,6 +121,9 @@ button {
       border: 1px solid var(--accent-color);
     }
   }
+  &.compact {
+    font-size: 0.8rem;
+  }
 
   &.disabled {
     cursor: default;

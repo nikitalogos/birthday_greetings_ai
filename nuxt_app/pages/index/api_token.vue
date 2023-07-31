@@ -47,20 +47,22 @@ div.page-wrapper
     img(src="/images/copter.png" alt="Copter delivers a present")
   h1 Get API Token
   div.motivation
-    | It's free and will take 5 sec!
+    | It's free and will take a moment!
+    | You need to login via GitHub :)
   form
     div.param
       label(for="url") Get token
       button.button.go-to-replicate(@click.prevent="go_to_replicate")
           | Go to Replicate.com
           i.external.alternate.icon(style="margin-left: 10px")
-    div.param
+    div.param.good-wrap
       label(for="token") Token
-      input(:type="is_token_visible ? 'text' : 'password'" id="token" v-model="chatbot.token" placeholder="Paste token here")
-      button.show-token(v-if="is_token_visible" v-tooltip aria-label="Hide token" @click="is_token_visible = false")
-        i.white.eye.icon
-      button.show-token(v-else v-tooltip aria-label="Show token" @click="is_token_visible = true")
-        i.white.eye.slash.icon
+      div.input-wrapper
+        input(:type="is_token_visible ? 'text' : 'password'" id="token" v-model="chatbot.token" placeholder="Paste token here")
+        button.show-token(v-if="is_token_visible" v-tooltip aria-label="Hide token" @click="is_token_visible = false")
+          i.white.eye.icon
+        button.show-token(v-else v-tooltip aria-label="Show token" @click="is_token_visible = true")
+          i.white.eye.slash.icon
       button.button.next(:class="{ disabled: !chatbot.token || is_in_progress }" type="submit" @click.prevent="submit_token")
         | Next
         i.arrow.right.icon(style="margin-left: 5px")
@@ -78,7 +80,7 @@ div.page-wrapper
 
   div
     | You can
-    button.button.skip(@click="$router.push('/params')")
+    button.button.compact(@click="$router.push('/params')")
       | Skip
       i.angle.double.right.icon(style="margin-left: 5px")
     | this step
@@ -115,15 +117,30 @@ form {
   .button.go-to-replicate {
     width: calc(100% - 100px);
   }
-  input {
-    width: calc(100% - 250px);
-  }
-  button.show-token {
-    width: 50px;
+  .input-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    width: calc(100% - 200px);
+    min-width: 350px;
+
+    input {
+      width: calc(100% - 50px);
+    }
+    button.show-token {
+      width: 50px;
+    }
   }
   button.next {
     width: 100px;
     margin: 0;
+  }
+  .good-wrap {
+    & > button.next,
+    & > * {
+      margin-bottom: 10px;
+    }
   }
 }
 
@@ -152,9 +169,5 @@ form {
   &.error {
     color: var(--error-color);
   }
-}
-
-.button.skip {
-  font-size: 0.8rem;
 }
 </style>

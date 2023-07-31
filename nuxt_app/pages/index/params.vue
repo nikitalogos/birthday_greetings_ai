@@ -145,15 +145,12 @@ div.page-wrapper
     div(style="flex: 1")
     img(src="/images/girl.png" alt="A teenager girl with a present")
 
-  InfoBox
+  div(style="margin-bottom: 50px;")
     | Here are some AI models to paste your prompt into:<br>
-    ul
-      li
-        a(href="https://chat.openai.com/" target="_blank" rel="noopener") ChatGPT
-      li
-        a(href="https://chat.claudeai.ai" target="_blank" rel="noopener") Claude 2
-      li
-        a(href="https://huggingface.co/spaces/ysharma/Explore_llamav2_with_TGI" target="_blank" rel="noopener") Llama 2 (current)
+    div.buttons
+      a.button.compact(href="https://chat.openai.com/" target="_blank" rel="noopener") ChatGPT
+      a.button.compact(href="https://chat.claudeai.ai" target="_blank" rel="noopener") Claude 2
+      a.button.compact(href="https://huggingface.co/spaces/ysharma/Explore_llamav2_with_TGI" target="_blank" rel="noopener") Llama 2 (current)
 
 </template>
 
@@ -246,5 +243,13 @@ div.page-wrapper
 
     z-index: -1;
   }
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+
+  margin: 15px 0 15px -8px;
 }
 </style>

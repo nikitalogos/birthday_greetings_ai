@@ -2,6 +2,7 @@ import argparse
 import asyncio
 import json
 import os
+import socket
 import traceback
 from typing import List
 
@@ -108,6 +109,19 @@ def chatbot(r_json):
     return dict(message=resp_str)
 
 
+def get_ip_in_localnet():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        # doesn't even have to be reachable
+        s.connect(("10.255.255.255", 1))
+        ip = s.getsockname()[0]
+    except Exception:
+        ip = "127.0.0.1"
+    finally:
+        s.close()
+    return ip
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", type=str, default="0.0.0.0")
@@ -118,6 +132,7 @@ if __name__ == "__main__":
     allowed_client_hosts = ["https://logosnikita.com"]
     if args.dev:
         allowed_client_hosts.append("http://localhost:3000")
+        allowed_client_hosts.append(f"http://{get_ip_in_localnet()}:3000")
 
     server = Server(
         routes_post={
