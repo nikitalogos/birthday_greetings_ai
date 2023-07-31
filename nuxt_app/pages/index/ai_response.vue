@@ -16,6 +16,12 @@ export default defineNuxtComponent({
       await this.chatbot.run();
       this.scroll_to_bottom();
     },
+    open_in_new_tab(url) {
+      const new_window = window.open(url, "_blank", "noopener");
+      if (new_window) {
+        new_window.opener = null;
+      }
+    },
   },
   mounted() {
     this.scroll_to_bottom();
@@ -71,6 +77,12 @@ div.page-wrapper
     button.button(@click="$router.push('/params')" :class="{disabled: !params.is_valid}")
       i.edit.outline.icon
       | Edit params
+    button.button(
+      :class="{disabled: !chatbot.google_translate_url}"
+      @click="open_in_new_tab(chatbot.google_translate_url)"
+    )
+      i.language.icon
+      | Not {{ params.target_language.value }} language? Use Google Translate
 
   div(style="height: 100px")
 </template>

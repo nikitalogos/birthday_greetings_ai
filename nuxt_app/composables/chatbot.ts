@@ -168,3 +168,44 @@ export const chatbot = reactive({
 chatbot.can_run = computed(() => {
   return params.is_valid && chatbot.token && !chatbot.is_in_progress;
 });
+
+chatbot.google_translate_url = computed(() => {
+  const history = chatbot.chat_history;
+
+  if (history.length === 0) {
+    return null;
+  }
+  const last_item = history[history.length - 1];
+  if (last_item.is_error) {
+    return null;
+  }
+  const text = encodeURIComponent(last_item.response);
+
+  const language_codes = {
+    Arabic: "ar",
+    Chinese: "zh-CN",
+    Danish: "da",
+    Dutch: "nl",
+    English: "en",
+    French: "fr",
+    German: "de",
+    Hebrew: "he",
+    Hindi: "hi",
+    Italian: "it",
+    Japanese: "ja",
+    Korean: "ko",
+    Norwegian: "no",
+    Polish: "pl",
+    Portuguese: "pt",
+    Russian: "ru",
+    Swedish: "sv",
+    Thai: "th",
+    Turkish: "tr",
+    Spanish: "es",
+  };
+  const target_lang = language_codes[params.target_language.value] ?? "en";
+
+  const prompt = params.prompt;
+  const url = `https://translate.google.com/?sl=auto&tl=${target_lang}&text=${text}&op=translate`;
+  return url;
+});
