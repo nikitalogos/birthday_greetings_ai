@@ -10,7 +10,6 @@ export default defineNuxtComponent({
   methods: {
     scroll_to_bottom() {
       const messages = this.$el.querySelector(".messages");
-      console.log(messages)
       messages.scrollTop = messages.scrollHeight;
     },
     async regenerate_response() {
