@@ -55,8 +55,12 @@ def generate_random_name():
 
 
 def generate_random_date():
+    max_age = int(
+        np.random.choice([30, 50, 100])
+    )  # 0-30 - 33% * (1 + 0.6 + 0.3), 31-50 - 33% * (0.4 + 0.2) 51-100 - 33% * (0.5)
+
     end_date = datetime.now()
-    start_date = end_date - timedelta(days=365 * 150)
+    start_date = end_date - timedelta(days=365 * max_age)
 
     time_between_dates = end_date - start_date
     days_between_dates = time_between_dates.days
@@ -362,9 +366,9 @@ def get_random_prompt():
 
 
 if __name__ == "__main__":
-    # for i in range(100):
-    #     print(generate_random_comment())
-    # exit(0)
+    for i in range(100):
+        print(generate_random_date())
+    exit(0)
 
     params = get_random_params_item()
     pprint(params)

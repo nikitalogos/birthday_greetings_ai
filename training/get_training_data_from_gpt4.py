@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import traceback
 
 import openai
 import yaml
@@ -42,7 +43,11 @@ if __name__ == "__main__":
         print(prompt)
         print("\n~~~~\n")
 
-        completion = ask_chatgpt(prompt)
+        try:
+            completion = ask_chatgpt(prompt)
+        except Exception:
+            traceback.print_exc()
+            continue
         print(completion)
 
         write_jsonl(prompt, completion, "training_data.jsonl")
