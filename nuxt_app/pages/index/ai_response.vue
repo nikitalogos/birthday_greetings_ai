@@ -10,11 +10,12 @@ export default defineNuxtComponent({
   methods: {
     scroll_to_bottom() {
       const messages = this.$el.querySelector(".messages");
+      console.log(messages)
       messages.scrollTop = messages.scrollHeight;
     },
     async regenerate_response() {
+      setTimeout(this.scroll_to_bottom, 1000);
       await this.chatbot.run();
-      this.scroll_to_bottom();
     },
     open_in_new_tab(url) {
       const new_window = window.open(url, "_blank", "noopener");
