@@ -99,7 +99,7 @@ def chatbot(r_json):
             prompt=prompt,
             temperature=0.5,
             top_p=0.9,
-            max_length=512,
+            max_length=1024,
             repetition_penalty=1,
         ),
     )
