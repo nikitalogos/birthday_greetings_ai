@@ -94,7 +94,7 @@ def chatbot(r_json):
     print(f"{prompt=}")
 
     resp = replicate.run(
-        "a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5",
+        "a16z-infra/llama-2-13b-chat:d5da4236b006f967ceb7da037be9cfc3924b20d21fed88e1e94f19d56e2d3111",
         input=dict(
             prompt=prompt,
             temperature=0.5,
