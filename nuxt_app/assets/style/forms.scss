@@ -88,11 +88,12 @@ form {
 
       // hide buggy elements
       .dp__btn.dp__button.dp__overlay_action.dp__button_bottom,
-      .dp__month_year_row > .dp__btn.dp--arrow-btn-nav,
-      .dp__month_year_row .dp__btn.dp__month_year_select {
+      .dp__month_year_row > .dp__btn.dp--arrow-btn-nav {
         display: none;
       }
-      --dp-month-year-row-height: 0;
+      .dp__month_year_row .dp__btn.dp__month_year_select {
+        pointer-events: none;
+      }
       // end hide buggy elements
     }
     .computed {
