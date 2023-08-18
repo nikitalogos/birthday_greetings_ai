@@ -16,12 +16,6 @@ export default defineNuxtComponent({
     };
   },
   methods: {
-    date_format(date) {
-      var dd = String(date.getDate()).padStart(2, "0");
-      var mm = String(date.getMonth() + 1).padStart(2, "0"); //January is 0!
-      var yyyy = date.getFullYear();
-      return yyyy + "-" + mm + "-" + dd;
-    },
     limit_textarea_input(event, param) {
       const value = event.target.value.slice(0, param.max_length);
       param.value = value;
@@ -51,18 +45,22 @@ div.page-wrapper
         div.param(v-for="param in group.items")
           label {{ param.label + (param.required ? '*' : '') }}
 
-          //- can't use :flow="['year', 'month', 'calendar']" because of a bug. But maybe it will be fixed soon... todo: watch this
+          //- can use :flow="['year', 'month', 'calendar']" since v6.0.0.
+          // But it adds page reload after pressing enter, so we need @keydown.enter.prevent
+          // top and bottom buttons also cause page reload, so we need to hide them (see forms.scss)
           div.date-wrapper(v-if="param.type === 'date'")
             VueDatePicker.date(
               v-model="param.value"
               :id="param.label"
               auto-apply
               :enable-time-picker="false"
-              :format="date_format"
+              format="yyyy-MM-dd"
               dark
               text-input
               :text-input-options="{ format: 'yyyy-MM-dd' }"
               placeholder="Select date or type it in format YYYY-MM-DD"
+              :flow="['year', 'month', 'calendar']"
+              @keydown.enter.prevent
             )
             span.computed(v-if="!!params.date_of_birth.value")
               span(:class="{hidden: !params.use_age.value}") {{ params.age }} years old,
